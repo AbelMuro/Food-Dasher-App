@@ -1,0 +1,67 @@
+.carouselContainer {
+    width: 1000px;
+    height: auto;
+    position: relative;                 /* this is for the buttons that are position: absolute */   
+    z-index: 1;
+    transition: height 0.5s 0s ease-in;
+    margin: auto;
+}
+
+.carouselWindow {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.carouselTracker {  
+    width: auto;
+    height: 100%;  
+    display: inline-block;        
+    white-space: nowrap;
+    transition: transform 0.3s ease-in-out;
+}
+
+.carouselImage {
+    width: 1000px;
+    object-fit: contain;                /*keep in mind that contain will adjust the height for us*/
+}
+
+.leftButton, .rightButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    background-color: green;
+    cursor: pointer;
+    font-size: 1.7rem;
+}
+
+.leftButton {
+    left: -50px;
+}
+
+.rightButton {
+    right: -50px;
+}
+
+@media (max-width: 1120px) {
+    .leftButton {
+        left: 50px
+    }
+    .rightButton {
+        right: 50px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .carouselContainer {
+        width: 100%;
+    }
+    .carouselImage{
+        width: 100%;
+    }
+
+}
+

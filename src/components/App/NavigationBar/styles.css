@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Pacifico&family=Roboto&family=Shadows+Into+Light&display=swap');
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+span {
+    pointer-events: none;       /* using span elements for the icons that are nested within buttons; so that the icons wont capture the event, we need the button to capture the event*/
+}
+
+.navBar {
+    display: flex;
+    justify-content: space-between;
+    background-color: green;
+    padding: 1.0rem;
+}
+
+.navLogo {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.menu, .menuCart {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu {
+    list-style-type: none;
+}
+
+.menuItem {
+    border: none;
+    background: none;
+    font-size: 1.2rem;
+    padding: 5px;
+    color: white;
+}
+
+.menuItem:hover {
+    font-size: 1.4rem;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.displayOrder {
+    background-color: darkgreen;
+    width: 400px;
+    height: 100%;
+    border-left: 5px solid black;
+    position: fixed;
+    z-index: 2;
+    top: 0px;
+    right: -400px;
+    transition: right 0.3s 0s ease-in;
+    -webkit-transition: right 0.3s 0s ease-in;
+    overflow: auto;
+
+}
+
+.displayOrder.activate {
+    right: 0px;
+}
+
+.close {
+    position: absolute;
+    cursor: pointer;
+    top: 10px;
+    left: 10px;
+    font-size: 2.0rem;
+    color: white;
+}
+
+.close:hover{
+    color: black;
+}
+
+.yourOrder {
+    font-size: 2.7rem;
+    color: white;
+    font-weight: bold;
+    width: 300px;
+    margin: auto;
+    text-align: center;
+}
