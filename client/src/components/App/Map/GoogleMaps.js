@@ -4,14 +4,16 @@ import {useNavigate} from 'react-router-dom';
 import './styles.css';
 import customStyles from './GoogleMapsStyles';
 
+
 const options = {
     styles: customStyles
 }
 
 function Map() {
+
     const [libraries] = useState(["places"]);                       
     const {isLoaded} = useLoadScript({  
-        googleMapsApiKey: "AIzaSyDKBV38tvGIVBnogf0gP9YWwe-PHQXwh7w",
+        googleMapsApiKey: process.env.GOOGLE_MAP_KEY,           // .env variable, you must npm install dotenv-webpack... look at webpack.config for more details
         libraries 
     });
     const [map, setMap] = useState();
