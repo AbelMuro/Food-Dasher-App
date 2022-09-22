@@ -1,5 +1,5 @@
 //initializing REACT.....
-import React from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom/client";
 
 //initializing redux
@@ -10,19 +10,41 @@ import store from './store';
 import App from './components/App';
 
 
-//trying to configure webpack to take a proxy
 function Login() {
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false)
+    
+    let disable = password.length < 6 || userName.length == 0 || loading;
+  
+    //trying to post cutoms data to the server
+    const handleLogin = () => {
+        //setLoading(true);
+        fetch('/login', {
+            method: "POST",
+            body: JSON.stringify("this should work"),       //JSON.stringify(data)
+            headers: {
+                "Content-Type" : "application/json"
+            },
+        }).then(response => console.log(response));
+
+
+        //setLoading(false)
+    }
+        
+
+
     return(
-        <form action="login">
-            <label htmlfor="username">
+        <form>
+            <label htmlFor="username">
                 Username: 
             </label>
-            <input type="text" id="username" name="username" value="" required/>
-            <label htmlfor="password">
+            <input type="text" id="username" name="username" value={userName} onChange={(e) => {setUserName(e.target.value)}}/>
+            <label htmlFor="password">
                 Password: 
             </label>
-            <input type="password" id="password" name="password" value="" required/>
-            <input type="submit"/>
+            <input type="password" id="password" name="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
+            <input disabled={disable} type="submit" value="Login" onClick={handleLogin}/>
         </form>
     )
 }
