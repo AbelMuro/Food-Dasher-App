@@ -13,39 +13,38 @@ import App from './components/App';
 function Login() {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false)
-    
-    let disable = password.length < 6 || userName.length == 0 || loading;
+    let disable = password.length < 6 || userName.length == 0;
   
-    //trying to post cutoms data to the server
     const handleLogin = () => {
-        //setLoading(true);
-        fetch('/login', {
+        fetch('/example', {
             method: "POST",
-            body: JSON.stringify({example : "this should work"}),       //JSON.stringify(data)
+            body: JSON.stringify({example : "this should work"}), 
             headers: {
                 "Content-Type" : 'application/json'
             },
-        }).then(response => {console.log(response.text())});
-
-
-        //setLoading(false)
+        }).then(response => { console.log(response.ok)})
+        //.then(data =>{ console.log(data)});
     }
         
 
 
     return(
-        <form>
-            <label htmlFor="username">
-                Username: 
-            </label>
-            <input type="text" id="username" name="username" value={userName} onChange={(e) => {setUserName(e.target.value)}}/>
-            <label htmlFor="password">
-                Password: 
-            </label>
-            <input type="password" id="password" name="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
-            <input disabled={disable} type="submit" value="Login" onClick={handleLogin}/>
-        </form>
+        <>
+            <form action="login" method="POST">
+                <label htmlFor="username">
+                    Username: 
+                </label>
+                <input type="text" id="username" name="username" value={userName} onChange={(e) => {setUserName(e.target.value)}}/>
+                <label htmlFor="password">
+                    Password: 
+                </label>
+                <input type="password" id="password" name="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
+                <input disabled={disable} type="submit" value="Login"/>
+            
+            </form> 
+            <button onClick={handleLogin}>fetch</button>       
+        </>
+
     )
 }
 
