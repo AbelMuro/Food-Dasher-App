@@ -3,9 +3,9 @@ const formidable = require('formidable');
 const app = express();
 const bodyParser = require("body-parser");
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-app.use('/login', (req, res) => {
+app.post('/login', (req, res) => {
     let form = new formidable.IncomingForm();
     form.parse(req, (err, fields, files) => {
     })

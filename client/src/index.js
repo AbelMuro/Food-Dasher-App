@@ -22,11 +22,11 @@ function Login() {
         //setLoading(true);
         fetch('/login', {
             method: "POST",
-            body: JSON.stringify("this should work"),       //JSON.stringify(data)
+            body: JSON.stringify({example : "this should work"}),       //JSON.stringify(data)
             headers: {
-                "Content-Type" : "application/json"
+                "Content-Type" : 'application/json'
             },
-        }).then(response => console.log(response));
+        }).then(response => {console.log(response.text())});
 
 
         //setLoading(false)
