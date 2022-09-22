@@ -15,6 +15,7 @@ function Login() {
     const [password, setPassword] = useState("");
     let disable = password.length < 6 || userName.length == 0;
   
+    //learn about cookies as well
     const handleLogin = () => {
         fetch('/getData', {
             method: "GET",
