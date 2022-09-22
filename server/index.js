@@ -13,9 +13,12 @@ app.use('/example', (req, res) => {
 app.use('/login', (req, res) => {
     let form = new formidable.IncomingForm();
     form.parse(req, (err, fields, files) => {
-        res.send("You Entered " + fields.userName);
-        res.send(" and " + fields.password);
+        res.send("You Entered " + fields.username + " and " + fields.password);
     })
+})
+
+app.use('/getData', (req, res) => {
+    res.send({"data": "just some data"});
 })
 
 

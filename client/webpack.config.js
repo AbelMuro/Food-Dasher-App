@@ -38,13 +38,9 @@ module.exports = {
     devServer: {
         port: 3000,
         proxy: {
-            '/login': {
+            '/': {
                 target: 'http://localhost:3000',
                 router: () => 'http://localhost:5000'       //all requests will be forwarded to this port
-            },
-            '/example': {
-                target: 'http://localhost:3000',
-                router: () => 'http://localhost:5000'
             }
         }
     }

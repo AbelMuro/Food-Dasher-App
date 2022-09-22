@@ -16,14 +16,14 @@ function Login() {
     let disable = password.length < 6 || userName.length == 0;
   
     const handleLogin = () => {
-        fetch('/example', {
-            method: "POST",
+        fetch('/getData', {
+            method: "GET",
             body: JSON.stringify({example : "this should work"}), 
             headers: {
                 "Content-Type" : 'application/json'
             },
-        }).then(response => { console.log(response.ok)})
-        //.then(data =>{ console.log(data)});
+        }).then(response => { return response.text()})
+        .then(data => {console.log(data)});
     }
         
 
