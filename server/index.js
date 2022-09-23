@@ -22,7 +22,7 @@ app.use('/login', (req, res) => {
 })
 
 app.use('/setCookie', (req, res) => {
-    console.log(req.cookies);
+    console.log(req.session);
     res.send({"data": "just some data"});
 })
 

@@ -15,11 +15,13 @@ function Login() {
     const [password, setPassword] = useState("");
     let disable = password.length < 6 || userName.length == 0;
   
-    //learn about cookies as well
     const handleLogin = () => {
+        //learn more about session and cookies
         document.cookie= "username=John doe; path=/";
         document.cookie= "password=cobra69";
-        document.cookie= "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path='/'"
+        document.cookie= "username=hotStuff69";
+        sessionStorage.setItem("key", "value");
+        sessionStorage.getItem("key")
         
         fetch('/setCookie',{
             method: "POST",
