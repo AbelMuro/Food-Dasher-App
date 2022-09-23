@@ -16,12 +16,12 @@ function Login() {
     let disable = password.length < 6 || userName.length == 0;
   
     const handleLogin = () => {
-        //learn more about session and cookies
         document.cookie= "username=John doe; path=/";
         document.cookie= "password=cobra69";
         document.cookie= "username=hotStuff69";
         sessionStorage.setItem("key", "value");
         sessionStorage.getItem("key")
+        sessionStorage.clickcount = 1;
         
         fetch('/setCookie',{
             method: "POST",
