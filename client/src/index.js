@@ -16,13 +16,8 @@ function Login() {
     let disable = password.length < 6 || userName.length == 0;
   
     const handleLogin = () => {
-        document.cookie= "username=John doe; path=/";
-        document.cookie= "password=cobra69";
-        document.cookie= "username=hotStuff69";
-        sessionStorage.setItem("key", "value");
-        sessionStorage.getItem("key")
-        sessionStorage.clickcount = 1;
-        
+
+        //learn about put and post requests
         fetch('/setCookie',{
             method: "POST",
             credentials: "include",             //used mostly for cookies
