@@ -17,14 +17,16 @@ function Login() {
   
     //learn about cookies as well
     const handleLogin = () => {
-        fetch('/getData', {
-            method: "GET",
-            body: JSON.stringify({example : "this should work"}), 
-            headers: {
-                "Content-Type" : 'application/json'
-            },
-        }).then(response => { return response.text()})
-        .then(data => {console.log(data)});
+        document.cookie= "username=John doe; path=/";
+        document.cookie= "password=cobra69";
+        document.cookie= "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path='/'"
+        
+        fetch('/setCookie',{
+            method: "POST",
+            credentials: "include",             //used mostly for cookies
+        })
+            .then(response => { return response.json()})
+            .then(data => data);
     }
         
 
