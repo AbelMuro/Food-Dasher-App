@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useRef} from 'react';
+import React, { useState, useRef} from 'react';
 import {GoogleMap, useLoadScript, Autocomplete, Marker, DirectionsRenderer} from '@react-google-maps/api';
 import {useNavigate} from 'react-router-dom';
 import './styles.css';
@@ -254,10 +254,10 @@ function Map() {
             })
         }
     }
-    const onLoad = useCallback((map)=>{
+    const onLoad = (map)=>{
         getUsersLocation(map);
         setMap(map);
-    }, []);
+    };
 
 
     function clearRoute() {
