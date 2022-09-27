@@ -9,64 +9,72 @@ import ReactDOM from "react-dom/client";
 //importing the actual app
 //import App from './components/App';
 
-import ButtonUnstyled from '@mui/base/ButtonUnstyled'; 
-import BadgeUnstyled from "@mui/base/BadgeUnstyled";
+import ButtonUnstyled, {buttonUnstyledClasses} from '@mui/base/ButtonUnstyled'; 
+import SwitchUnstyled, {switchUnstyledClasses} from '@mui/base/SwitchUnstyled';
+import BadgeUnstyled, {badgeUnstyledClasses} from "@mui/base/BadgeUnstyled";
 import {styled} from '@mui/system';                         
 
-
-const blue = {
-    500: "#007FFF",
-    600: "#0072E5",
-    700: "#0059B2"
-}
-
-const Button = styled(ButtonUnstyled)`
-    color: white;
-    background-color: ${blue[500]};
-    border: none;
-    border-radius: 20px;
-    padding: 1.2rem;
-    display: block;
-    width: 100px;
-    margin: auto;
-    cursor: pointer;
-    position: relative;
-
-    &:hover {
-        background-color: ${blue[600]};
+const css = `
+    .my-switch {
+        font-size: 0;
+        position: relative;
+        display: inline-block;
+        width: 32px;
+        height: 20px;
+        background: #B3C3D3;
+        border-radius: 10px;
+        margin: 10px;
+        cursor: pointer;
     }
 
-    &:active{                         
-        background-color: ${blue[700]};
+    .my-switch.${switchUnstyledClasses.checked} {
+        background: #007FFF;
+    }
+
+    .my-switch .${switchUnstyledClasses.thumb} {
+        display: block;
+        width: 14px;
+        height: 14px;
+        top: 3px;
+        left: 3px;
+        border-radius: 16px;
+        background-color: #FFF;
+        position: relative;
+        transition: all 200ms ease;
+    }
+
+    .my-switch.${switchUnstyledClasses.checked} .${switchUnstyledClasses.thumb} {
+        left: 14px;
+        top: 3px;
+        background-color: #FFF;
+    }
+
+    .my-switch .${switchUnstyledClasses.input} {
+        cursor: inherit;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        z-index: 1;
+        margin: 0;
     }
 `
 
-const Badge = styled(BadgeUnstyled)`
-    background-color: red;
-    border-radius: 100%;
-    position: absolute;
-    padding: 5px 7px;
-    top: -10px;
-    right: 5px;
-`
+
 
 
 function MUI() {
 
-    const handleClick = () => {
-        console.log("it works");
-
-    }
+    console.log(switchUnstyledClasses);
 
     return(
-        <Button onClick={handleClick} className="whatever">
-            hello world
-            <Badge componentsProps={{badge: {className: 'whatever'}}} >1</Badge>       
-        </Button>  
-
+        <>
+            <style type="text/css">{css}</style>
+            <SwitchUnstyled className="my-switch"/>        
+        </>
     )
- 
-
 }
 
 
