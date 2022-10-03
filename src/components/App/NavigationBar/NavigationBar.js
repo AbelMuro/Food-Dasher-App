@@ -20,16 +20,16 @@ function NavigationBar() {
     }
 
     const displayMenu = (e) => {
-        let navBar = getComputedStyle(document.querySelector(".navBar"));           //
-        let allItems = Array.from(menuItems.current.children);
+        let navBar = document.querySelector(".navBar");
+        navBar.style.height = "300px";
 
     }
 
     return (
             <nav className={"navBar"} ref={menuItems}>
-
+        
                 <div className={"hamburger"} onClick={displayMenu}>
-                    <span><FontAwesomeIcon icon={faBars}/></span>
+                    <span><FontAwesomeIcon icon={faBars} className={"icon"}/></span>
                 </div>
 
                 <div className={"navLogo"}>

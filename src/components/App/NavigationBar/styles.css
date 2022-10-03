@@ -16,7 +16,7 @@ span {
     background-color: green;
     padding: 1.0rem;
     overflow: hidden;
-    height: auto;               /* this is where i left off*/
+    height: 70px;
 }
 
 .navLogo {
@@ -101,17 +101,28 @@ span {
 
 
 @media (max-width: 670px) {
+    .navLogo{
+        display: none;
+    }
 
     .hamburger{
         display: block;
     }
 
-    .navBar, .menu{
-        justify-content: center;
+    .navBar{
+        height: 60px;
         flex-direction: column;
         align-items: center;
+        padding-top: 5px;
     }
+
+    .menu{
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
     .icon{
-        padding:20px
+        padding: 10px
     }
 }
