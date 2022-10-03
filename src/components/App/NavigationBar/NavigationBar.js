@@ -9,7 +9,7 @@ import CheckOut from './CheckOut';
 
 function NavigationBar() {
     let displayOrder = useRef();
-    let menuItems = useRef();
+    let navBar = useRef();
 
     const displayCheckOut = () => {  
         displayOrder.current.classList.toggle("activate");
@@ -20,13 +20,11 @@ function NavigationBar() {
     }
 
     const displayMenu = (e) => {
-        let navBar = document.querySelector(".navBar");
-        navBar.style.height = "300px";
-
+        navBar.current.classList.toggle("closeOpen")
     }
 
     return (
-            <nav className={"navBar"} ref={menuItems}>
+            <nav className={"navBar"} ref={navBar}>
         
                 <div className={"hamburger"} onClick={displayMenu}>
                     <span><FontAwesomeIcon icon={faBars} className={"icon"}/></span>
@@ -42,16 +40,20 @@ function NavigationBar() {
                             <span><FontAwesomeIcon icon={faHouse} className={"icon"}/></span>
                         </Link> 
                     </li>
+
+                    <div className={"whiteLine"}></div>
                     <li>
                         <Link className={"menuItem"} to="/GoogleMap">
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} className={"icon"}/></span>
                         </Link> 
                     </li>
+                    <div className={"whiteLine"}></div>
                     <li>
                         <Link className={"menuItem"} to="/">
                             <span><FontAwesomeIcon icon={faUser} className={"icon"}/></span>
                         </Link> 
                     </li>
+                    <div className={"whiteLine"}></div>
                 </ul>
 
 
