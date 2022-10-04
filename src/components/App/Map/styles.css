@@ -147,3 +147,16 @@ span {
         height: 600px;
     }
 }
+@media (max-width: 605px){
+   .instructionsContainer{
+        width: 100%;
+   }
+   .inputContainer{
+        width: 250px;
+        left: 10%;
+   }
+
+   .selectedMarker{
+        left: 10%;
+   }
+}

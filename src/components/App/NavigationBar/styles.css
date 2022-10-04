@@ -17,10 +17,12 @@ span {
     padding: 1.0rem;
     overflow: hidden;
     height: 70px;
+    -webkit-transition: height 0.3s ease-in;
+    transition: height 0.3s ease-in;
 }
 
 .navBar.closeOpen{
-    height: auto;
+    height: 480px;
 }
 
 .navLogo {
@@ -111,6 +113,10 @@ span {
 
 
 @media (max-width: 670px) {
+    .close{
+        font-size: 1.5rem;
+    }
+
     .navLogo{
         display: none;
     }
@@ -150,5 +156,28 @@ span {
 
     .whiteLine{
         display: block;
+    }
+}
+
+@media (max-width: 550px){
+    .displayOrder{
+        width: 300px;
+        right: -300px;
+    }
+    .yourOrder{
+        font-size: 2.0rem;
+        width: 300px;
+    }
+}
+
+@media (max-width: 430px){
+    .displayOrder{
+        width: 200px;
+        right: -200px;
+    }
+
+    .yourOrder{
+        font-size: 2.0rem;
+        width: 230px;
     }
 }

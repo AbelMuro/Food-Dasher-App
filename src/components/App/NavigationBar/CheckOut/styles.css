@@ -43,3 +43,13 @@
     background-color: green;
     margin-bottom: 1.2rem;
 }
+
+@media (max-width: 550px){
+    .itemImageCheckOut{
+        width: 150px;
+    }
+    [class*="CheckOut"]:not(.itemImageCheckOut){
+        width: 150px;
+        font-size: 1.1rem;
+    }
+}

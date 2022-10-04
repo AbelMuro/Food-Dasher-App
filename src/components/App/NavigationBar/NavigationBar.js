@@ -4,12 +4,18 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHouse, faMagnifyingGlass, faCartShopping, faUser, faX, faBars} from '@fortawesome/free-solid-svg-icons'; 
 import './styles.css';
 import CheckOut from './CheckOut';
+import {useMediaQuery} from 'react-responsive';
 
 
 
 function NavigationBar() {
+    let mediaQuery = useMediaQuery({query: "(max-width: 670px)"});
     let displayOrder = useRef();
-    let navBar = useRef();
+    let navBar = useRef(null);
+
+    if(!mediaQuery && navBar.current){
+        navBar.current.classList.remove("closeOpen");
+    }
 
     const displayCheckOut = () => {  
         displayOrder.current.classList.toggle("activate");
@@ -19,8 +25,12 @@ function NavigationBar() {
         displayOrder.current.classList.toggle("activate"); 
     }
 
-    const displayMenu = (e) => {
+    const displayMenu = () => {
         navBar.current.classList.toggle("closeOpen")
+    }
+
+    const closeNavBar = () => {
+        navBar.current.classList.remove("closeOpen");
     }
 
     return (
@@ -36,20 +46,20 @@ function NavigationBar() {
 
                 <ul className={"menu"}>    
                     <li>
-                        <Link className={"menuItem"} to="/"> 
+                        <Link className={"menuItem"} to="/" onClick={closeNavBar}> 
                             <span><FontAwesomeIcon icon={faHouse} className={"icon"}/></span>
                         </Link> 
                     </li>
 
                     <div className={"whiteLine"}></div>
                     <li>
-                        <Link className={"menuItem"} to="/GoogleMap">
+                        <Link className={"menuItem"} to="/GoogleMap" onClick={closeNavBar}>
                             <span><FontAwesomeIcon icon={faMagnifyingGlass} className={"icon"}/></span>
                         </Link> 
                     </li>
                     <div className={"whiteLine"}></div>
                     <li>
-                        <Link className={"menuItem"} to="/">
+                        <Link className={"menuItem"} to="/" onClick={closeNavBar}>
                             <span><FontAwesomeIcon icon={faUser} className={"icon"}/></span>
                         </Link> 
                     </li>
