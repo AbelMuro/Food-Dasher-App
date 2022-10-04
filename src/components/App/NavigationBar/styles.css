@@ -64,7 +64,7 @@ span {
     position: fixed;
     z-index: 2;
     top: 0px;
-    right: -400px;
+    right: -100%;
     transition: right 0.3s 0s ease-in;
     -webkit-transition: right 0.3s 0s ease-in;
     overflow: auto;
@@ -72,7 +72,7 @@ span {
 }
 
 .displayOrder.activate {
-    right: 0px;
+    right: 0%;
 }
 
 .close {
@@ -162,7 +162,6 @@ span {
 @media (max-width: 550px){
     .displayOrder{
         width: 300px;
-        right: -300px;
     }
     .yourOrder{
         font-size: 2.0rem;
@@ -173,7 +172,6 @@ span {
 @media (max-width: 430px){
     .displayOrder{
         width: 200px;
-        right: -200px;
     }
 
     .yourOrder{
