@@ -1,5 +1,4 @@
 import React from 'react';
-import './styles.css'
 
 const images = require.context("./images", true);
 
@@ -22,7 +21,7 @@ export default function McDonalds(props) {
             <div className={"itemContainer"}>
                 <img className={"itemImage"} src={images("./mcdonalds bigmac.jpg")} alt={"big mac"} />    
                 <div className={"itemTitle"}>Big Mac</div>
-                <div className={"itemIngredients"} data-ignore="">american cheese,ketchup,pickles,onions,mustard,beef patty</div>
+                <div className={"itemIngredients"} data-ignore="">american cheese, ketchup, pickles, onions, mustard, beef patty</div>
                 <form className={"checkBoxes"} data-type={"Ingredients"}>
                     <div className="noteToUser">Select Ingredients to exclude:</div> 
                     <input type={"checkbox"} defaultValue={"no american cheese"}/> No American Cheese<br/>
@@ -38,7 +37,7 @@ export default function McDonalds(props) {
             <div className={"itemContainer"}>
                 <img className={"itemImage"} src={images("./mcdonalds quarter pounder with cheese.jpg")} alt={"Quarter Pounder with cheese"} />    
                 <div className={"itemTitle"}>Quarter Pounder with Cheese</div>
-                <div className={"itemIngredients"} data-ignore="">american cheese,ketchup,pickles,onions,mustard,beef patty</div>
+                <div className={"itemIngredients"} data-ignore="">american cheese, ketchup, pickles, onions, mustard, beef patty</div>
                 <form className={"checkBoxes"} data-type={"Ingredients"}>
                     <div className="noteToUser">Select Ingredients to exclude:</div>
                     <input type={"checkbox"} defaultValue={"no american cheese"}/> No American Cheese<br/>
@@ -54,7 +53,7 @@ export default function McDonalds(props) {
             <div className={"itemContainer"}>
                 <img className={"itemImage"} src={images("./mcdonalds double quarter pounder with cheese.jpg")} alt={"double quarter pounder with cheese"} />    
                 <div className={"itemTitle"}>Double Quarter Pounder with cheese</div>
-                <div className={"itemIngredients"} data-ignore="">american cheese,ketchup,pickles,onions,mustard,beef patties</div>
+                <div className={"itemIngredients"} data-ignore="">american cheese, ketchup, pickles, onions, mustard, beef patties</div>
                 <form className={"checkBoxes"} data-type={"Ingredients"}>
                     <div className="noteToUser">Select Ingredients to exclude:</div>
                     <input type={"checkbox"} defaultValue={"no american cheese"}/> No American Cheese<br/>
@@ -70,7 +69,7 @@ export default function McDonalds(props) {
             <div className={"itemContainer"}>
                 <img className={"itemImage"} src={images("./mcdonalds mcdouble.jpg")} alt={"mcDouble"} />    
                 <div className={"itemTitle"}>McDouble</div>
-                <div className={"itemIngredients"} data-ignore="">beef patty, american cheese,pickles,ketchup,onions,mustard</div>
+                <div className={"itemIngredients"} data-ignore="">beef patty, american cheese, pickles, ketchup, onions, mustard</div>
                 <form className={"checkBoxes"} data-type={"Ingredients"}>
                     <div className="noteToUser">Select Ingredients to exclude:</div>
                     <input type={"checkbox"} defaultValue={"no beef patty"}/> No beef patty<br/>
@@ -86,7 +85,7 @@ export default function McDonalds(props) {
             <div className={"itemContainer"}>
                 <img className={"itemImage"} src={images("./mcdonalds crispy chicken burger.jpg")} alt={"crispy chicken burger"} />    
                 <div className={"itemTitle"}>Crispy Chicken Burger</div>
-                <div className={"itemIngredients"} data-ignore="">chicken fillet,potato roll,pickles,salted butter</div>
+                <div className={"itemIngredients"} data-ignore="">chicken fillet, potato roll, pickles, salted butter</div>
                 <form className={"checkBoxes"} data-type={"Ingredients"}>
                     <div className="noteToUser">Select Ingredients to exclude:</div>
                     <input type={"checkbox"} defaultValue={"no chicken fillet"}/> No chicken fillet<br/>
@@ -100,7 +99,7 @@ export default function McDonalds(props) {
             <div className={"itemContainer"}>
                 <img className={"itemImage"} src={images("./mcdonalds mcchicken.jpg")} alt={"McChicken"} />    
                 <div className={"itemTitle"}>McChicken</div>
-                <div className={"itemIngredients"} data-ignore="">chicken patty,ketchup,shredded lettuce,mayo</div>
+                <div className={"itemIngredients"} data-ignore="">chicken patty, ketchup, shredded lettuce, mayo</div>
                 <form className={"checkBoxes"} data-type={"Ingredients"}>
                     <div className="noteToUser">Select Ingredients to exclude:</div>
                     <input type={"checkbox"} defaultValue={"no chicken patty"}/> No chicken patty<br/>

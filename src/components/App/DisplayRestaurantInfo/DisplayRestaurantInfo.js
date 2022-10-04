@@ -1,7 +1,8 @@
 import React from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import McDonalds from './McDonalds';
-import JackInTheBox from './JackInTheBox'
+import JackInTheBox from './JackInTheBox';
+import './styles.css';
 
 
 function DisplayRestaurantInfo() {

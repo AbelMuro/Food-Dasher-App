@@ -9,11 +9,12 @@ import {useMediaQuery} from 'react-responsive';
 
 
 function NavigationBar() {
-    let mediaQuery = useMediaQuery({query: "(max-width: 670px)"});
+    let mobile = useMediaQuery({query: "(max-width: 670px)"});
+    //planning on using media queries to remove the transition bug from the display order component
     let displayOrder = useRef();
     let navBar = useRef(null);
 
-    if(!mediaQuery && navBar.current){
+    if(!mobile && navBar.current){
         navBar.current.classList.remove("closeOpen");
     }
 
@@ -26,6 +27,7 @@ function NavigationBar() {
     }
 
     const displayMenu = () => {
+        navBar.current.style.transition = "";
         navBar.current.classList.toggle("closeOpen")
     }
 
