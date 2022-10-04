@@ -144,7 +144,7 @@ span {
 @media (max-width: 830px) {
     .googleMapContainer{
         width: 100%;
-        height: 600px;
+        height: 800px;
     }
 }
 @media (max-width: 605px){
@@ -155,8 +155,23 @@ span {
         width: 250px;
         left: 10%;
    }
-
    .selectedMarker{
-        left: 10%;
+        left: 5%;
+   }
+
+   .markerData{
+        width: 150px;
+   }
+
+   .markerName{
+        font-size: 1.0rem;
+   }
+
+   .markerAddress, .markerRating, .markerIsOpen{
+        font-size: 0.8rem;
+   }
+
+   .markerImage{
+        width: 150px;
    }
 }
