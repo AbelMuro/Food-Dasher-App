@@ -5,6 +5,7 @@ import {useCollectionData, useCollection} from 'react-firebase-hooks/firestore';
 import {db} from '~/firebase';
 import './styles.css';
 
+//need to figure out why the app crashes when i refresh the page at this point
 function DisplayRestaurantInfo() {
     const {choosenRestaurant} = useParams();
     console.log(choosenRestaurant)
