@@ -14,7 +14,7 @@ module.exports = {
             filename: 'index.html',           
             template: './src/index.html'      
         }),
-        new dotenv()                                //using the dotenv plugin to use .env files
+        new dotenv(),                                //using the dotenv plugin to use .env files
     ],
     module: {
         rules: [                               
@@ -36,6 +36,7 @@ module.exports = {
         ]
     },
     devServer: {
-        port: 3000
+        port: 3000,
+        historyApiFallback: true,
     }
 }

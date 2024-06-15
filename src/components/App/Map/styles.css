@@ -91,7 +91,6 @@ span {
     bottom: 0px;
     left: 20%;
     z-index: 1;
-    display: none; 
 }
 
 .selectedMarkers::after {

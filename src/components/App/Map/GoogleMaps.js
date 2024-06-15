@@ -1,9 +1,8 @@
-import React, { useState, useRef} from 'react';
+import React, { useState, useRef, useEffect} from 'react';
 import {GoogleMap, useLoadScript, Autocomplete, Marker, DirectionsRenderer} from '@react-google-maps/api';
 import {useNavigate} from 'react-router-dom';
 import './styles.css';
 import customStyles from './GoogleMapsStyles';
-
 
 const options = {
     styles: customStyles
@@ -13,66 +12,62 @@ function Map() {
 
     const [libraries] = useState(["places"]);                       
     const {isLoaded} = useLoadScript({  
-        googleMapsApiKey: process.env.GOOGLE_MAP_KEY,           // .env variable, you must npm install dotenv-webpack... look at webpack.config for more details
+        googleMapsApiKey: process.env.GOOGLE_MAP_KEY,          
         libraries 
     });
     const [map, setMap] = useState();
     const [directions, setDirections] = useState(null);
     const [duration, setDuration] = useState("");
-    const selectedRestaurant = useRef();
-    const usersLocationAddress = useRef();                        //usersLocationAddress will contain the users human readable address
+    const [restaurantInfo, setRestaurantInfo] = useState(null);
+    const restaurantInput = useRef();
+    const addressInput = useRef();                       
     const usersLocationLatLng = useRef(null);
-    const usersLocationMarker = useRef(null)
-    const destinationRef = useRef();                              //destinationRef will contain the location of the marker that the user has clicked on
+    const usersLocationMarker = useRef(null)                            
     const markers = useRef([]);                                   //an array to contain all the markers on the map
     const navigate = useNavigate(); 
 
-    function handleClick(choosenRestaurant) {
-        let restaurantName = choosenRestaurant.replace("'", "");
+    function handleClick() {
+        let restaurantName = restaurantInput.current.value;
         navigate("/GoogleMap/" + restaurantName);
     }
 
 
     async function geocoding(address){
         let geocoder = new google.maps.Geocoder();
-        let results = await new Promise((resolve)=>{
-            geocoder.geocode({address: address}, (results, status) => {
-                console.log()
-                if(status != "OK") {
-                    alert("Please enter a valid address");
-                    return;  
-                }
-                resolve({
-                    lat: results[0].geometry.location.lat(),
-                    lng: results[0].geometry.location.lng()
-                })
-     
-            })
-        });
-        return results;
+        let latLng = {}
+        await geocoder.geocode({address: address}, (results, status) => {
+            if(status !== "OK") {
+                alert('Please enter a valid address');
+                return;  
+            }
+            latLng = {
+                lat: results[0].geometry.location.lat(),
+                lng: results[0].geometry.location.lng()
+            }
+        });    
+        return latLng;        
     }
     async function reverseGeocoding(lat_lng) {
         let geocoder = new google.maps.Geocoder();
-        let results = await new Promise((resolve) => {
-            geocoder.geocode({location: lat_lng}, 
-            (results, status) => {        
+        let result;
+        await geocoder.geocode({location: lat_lng}, (results, status) => {        
                 if(status != "OK") 
                     return;
-                resolve(results[0].formatted_address)
+                result = results[0].formatted_address
             })
-        }) 
-        return results;
+        
+        return result;
     }
 
 
     //the three functions below will be called in succession (bottom to top)
-    async function calculateRoute(usersLocation) {
+    async function calculateRoute(usersLocation, destination) {
         let results;  
         try {       
             let directionService = new google.maps.DirectionsService(map);
             results = await directionService.route({                
                 origin: usersLocation,                                                      
-                destination: destinationRef.current,  
+                destination: destination,  
                 travelMode: google.maps.TravelMode.DRIVING                
             });  
         }
@@ -83,7 +78,7 @@ function Map() {
         setDirections(results);        
         setDuration(results.routes[0].legs[0].duration.text)  
     }    
-    async function getLocationDetails(place, position, placesService) {
+    async function getLocationDetails(place, placesService) {
         let results = await new Promise ((resolve) => {
                 placesService.getDetails({                                   //getting the details of the location marked by the marker
                     placeId: place.place_id,
@@ -97,7 +92,6 @@ function Map() {
                             markerRating: "Rating: " + place.rating + "/5",
                             markerIsOpen: place.opening_hours.isOpen() ? "Restaurant is OPEN" : "Restaurant is CLOSED",
                         }
-                        destinationRef.current = position;                  //we make the current marker the destination   
                         resolve(markerData);
                     }
                 )
@@ -107,7 +101,7 @@ function Map() {
     }    
     function searchNearbyRestaurants(usersLocation) {
         //just in case the user doesnt select one of the restaurants provided
-        let choosenRestaurant = selectedRestaurant.current.value;
+        let choosenRestaurant = restaurantInput.current.value;
         if(choosenRestaurant == ""){
             alert("Please select one of the restaurants")
             return; 
@@ -121,12 +115,11 @@ function Map() {
         //searching for nearby restaurants based on users location or location they inputed
         let placesService = new google.maps.places.PlacesService(map);     
         placesService.nearbySearch(request, (places, status) => {
-            if(status != "OK") {
+            if(status !== "OK") {
                 console.log(status);
                 alert("Address is invalid");
                 return;
             }
-            //we remove all previously added markers from the map
             if(markers.current.length != 0){                                     
                 markers.current.forEach((mark) => {
                     mark.setMap(null);
@@ -148,63 +141,28 @@ function Map() {
                 ///creating a click event for the marker
                 marker.addListener("click", () => {
                     //getting details of a location that is marked by a marker
-                    let promise = getLocationDetails(place, position, placesService); 
-                    promise.then((results)=> {
+                    let promise = getLocationDetails(place, placesService);
+                    promise.then((results)=> {                   
                         //we calculate the route between the users location and this marker
-                        calculateRoute(usersLocation);                                   
-                        //.selectedMarker will contain an img tag and another child element that has all marker data
-                        let selectedMarker = document.querySelector(".selectedMarker");                       
-                        //we delete any previous nested nodes within .selectedMarker
-                        if(selectedMarker.hasChildNodes()) {                            
-                            while(selectedMarker.lastChild){
-                                selectedMarker.removeChild(selectedMarker.lastChild);   
-                            }
-                        } 
-                        //we make the node visible to the document
-                        selectedMarker.style.display = "block"; 
-                        //creating a child container that will have all the marker data
-                        let markerData = document.createElement("div");
-                        markerData.setAttribute("class", "markerData");
-                        selectedMarker.appendChild(markerData);
-                        //storing all the details in dynamically created elements and appending them onto .selectedMarker
-                        for(let key in results){
-                            if(key == "markerImage") {
-                                let image = document.createElement("img");
-                                image.setAttribute("src", results[key]);
-                                image.setAttribute("class", key)
-                                selectedMarker.prepend(image)
-                            }
-                            else{
-                               let currentElement = document.createElement("div");
-                               currentElement.setAttribute("class", key);
-                               currentElement.innerHTML = results[key]; 
-                               selectedMarker.querySelector(".markerData").appendChild(currentElement);     //storing the marker data onto a child element of .selectedMarker
-                            }
-                        } 
-                        //also creating a button to let user choose the restaurant marked by this marker
-                        let button = document.createElement("button");
-                        button.setAttribute("type", "button");
-                        button.setAttribute("class","chooseRestaurant");
-                        button.addEventListener("click", () =>{handleClick(results.markerName)})
-                        button.innerHTML = "Choose Restaurant";
-                        selectedMarker.querySelector(".markerData").appendChild(button);                   
+                        calculateRoute(usersLocation, position);                                   
+                        setRestaurantInfo(results);               
                     })
                 }) 
                 //we keep track of the new markers by adding them onto an constant array
-                markers.current.push(marker);                                   
-            })        
+                markers.current.push(marker)                            
+            })    
         });         
     }
-    function CreateHomeMarkerAndSearch(){
+    async function CreateHomeMarkerAndSearch(){
         //this function will first geocode the users address into lat and long
         //then it will create a home marker and position it based on the lat and long
         //then it will call searchNearbyRestaurants for places that are near the users' location
-        let result = geocoding(usersLocationAddress.current.value);
-            result.then((inputedAddress) => {
+        geocoding(addressInput.current.value)
+            .then((inputedAddress) => {
                 if(inputedAddress == "")
                     return;  
                 usersLocationLatLng.current = inputedAddress;
-                let marker = new google.maps.Marker({
+                let marker = new google.maps.Marker({                                   //this marker will automatically appear on the map
                     position: inputedAddress,
                     map: map,
                     icon: "http://maps.gstatic.com/mapfiles/markers2/icon_green.png"
@@ -224,7 +182,7 @@ function Map() {
     }
 
     //the three functions below will be called in succession (bottom to top)
-    function getUsersLocation(map) {
+    function geolocation(map) {
         if(!navigator.geolocation) {
             alert("geolocation is not supported by your browser");
             return; 
@@ -236,9 +194,9 @@ function Map() {
                     lng: position.coords.longitude
                 }
                 usersLocationLatLng.current = currentPosition;
-                let address = reverseGeocoding(currentPosition);                                      
-                    address.then((formatted_address)=>{
-                        usersLocationAddress.current.value = formatted_address;   //storing the address of the users location
+                reverseGeocoding(currentPosition)                                     
+                    .then((formatted_address)=>{
+                        addressInput.current.value = formatted_address;   //storing the address of the users location
                     })
                 map.setCenter(currentPosition);
                 var marker = new google.maps.Marker({
@@ -247,15 +205,16 @@ function Map() {
                     icon: "http://maps.gstatic.com/mapfiles/markers2/icon_green.png"
                 })
                 usersLocationMarker.current = marker;                             //storing the marker used to mark the users location                             
-                map.setZoom(15);},  
+                map.setZoom(15);
+                },  
                 () => {
-                console.log("unable to retrieve your location")
-                return;
+                    console.log("unable to retrieve your location")
+                    return;
             })
         }
     }
     const onLoad = (map)=>{
-        getUsersLocation(map);
+        geolocation(map);
         setMap(map);
     };
 
@@ -263,13 +222,7 @@ function Map() {
     function clearRoute() {
         setDirections(null);
         setDuration("");
-        let selectedMarker = document.querySelector(".selectedMarker");
-        selectedMarker.style.display = "none";
-        if(selectedMarker.hasChildNodes()){
-            while(selectedMarker.lastChild){
-                selectedMarker.removeChild(selectedMarker.lastChild)
-            }
-        }
+        setRestaurantInfo(null);
     }
 
     return isLoaded ? (
@@ -294,24 +247,24 @@ function Map() {
                 mapTypeControl: false,
                 styles: options.styles
             }}                                                                                           
-             unMount={(map)=> setMap(null)}>
+             unMount={()=> setMap(null)}>
                 <div className="inputContainer">
                     <div>
                         <img src="http://maps.gstatic.com/mapfiles/markers2/icon_green.png" className="originMarker"/>
                         <Autocomplete className="autocomplete">
-                            <input className="usersAddress" type="text" ref={usersLocationAddress} />  
+                            <input className="usersAddress" type="text" ref={addressInput} />  
                         </Autocomplete>                    
                     </div>
                     <div>
                         <img src="http://maps.gstatic.com/mapfiles/markers2/boost-marker-mapview.png" className="destinationMarker"/>  
-                        <select className="SelectRestaurant" ref={selectedRestaurant}>
+                        <select className="SelectRestaurant" ref={restaurantInput}>
                             <option value="">
                                 Select restaurant..
                             </option>
-                            <option value="McDonald's">
+                            <option value="McDonalds">
                                 McDonalds
                             </option>
-                            <option value="Jack In The Box">
+                            <option value="Jack in the Box">
                                 Jack in the box
                             </option>
                         </select>                     
@@ -324,7 +277,29 @@ function Map() {
                 <div className="selectedMarker"> 
                 </div>                  
                 {directions && <DirectionsRenderer directions={directions}/> }
-         
+                {restaurantInfo && 
+                    <div className={'selectedMarker'}>
+                        <img className={'markerImage'} src={restaurantInfo['markerImage']}/>
+                        <div className={'markerData'}>
+                            <div className={'markerName'}>
+                                {restaurantInfo['markerName']}
+                            </div>
+                            <div className={'markerAddress'}>
+                                {restaurantInfo['markerAddress']}
+                            </div>
+                            <div className={'markerRating'}>
+                                {restaurantInfo['markerRating']}
+                            </div>
+                            <div className={'markerIsOpen'}>
+                                {restaurantInfo['markerIsOpen']}
+                            </div>
+                            <button className={'chooseRestaurant'} onClick={handleClick}>
+                                Choose Restaurant
+                            </button>
+                        </div>
+                    </div>
+
+                    }
             </GoogleMap>                 
             
         </section>
