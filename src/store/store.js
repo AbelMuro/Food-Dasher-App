@@ -1,9 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit';
-import OrderReducer from './reducers/OrderReducer.js';
+import rootReducer from './Reducers';
 
-//creating the store
 const store = configureStore({
-    reducer: OrderReducer
-});  
+    reducer: rootReducer
+})
 
 export default store;

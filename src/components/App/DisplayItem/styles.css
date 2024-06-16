@@ -2,7 +2,7 @@
 
 .choosenItemContainer {
     width: 100%;
-    height: auto;
+    height: calc(100vh - 70px);
     background-image: url('./images/food dash banner.png');
     text-align: center;
 }
@@ -19,8 +19,7 @@
     height: 300px;
 }
 
-.checkBoxes, .radioboxes {
-    display: none;
+.checkBoxes{
     margin: auto;
     width: 300px;
     height: auto;
@@ -32,36 +31,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.choosenItemPrice {
-    font-weight: bold; 
-    font-size: 1.7rem;
-    margin-bottom: 1.2rem;
-}
-
 .userInput {
     width: 300px;
     height: auto;
     margin: auto;
-}
-.selectQuantity {
-    font-family: 'Roboto', sans-serif;
-}
-
-.decreaseQuantity, .increaseQuantity {
-    border-radius: 100%;
-    border: none;
-    padding: 8px;
-    cursor: pointer
-}
-
-.decreaseQuantity {
-    background-color: grey;
-    pointer-events: none;
-}
-
-.increaseQuantity {
-    background-color: green;
-    margin-bottom: 1.2rem;
 }
 
 .addToOrderButton {
@@ -81,4 +54,11 @@
     border: none;
     padding: 10px;
     cursor: pointer;
+}
+
+
+@media(max-width: 670px){
+    .choosenItemContainer{
+        height: calc(100vh - 60px);
+    }
 }

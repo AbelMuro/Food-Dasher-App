@@ -56,47 +56,6 @@ span {
     cursor: pointer;
 }
 
-.displayOrder {
-    background-color: darkgreen;
-    width: 400px;
-    height: 100%;
-    border-left: 5px solid black;
-    position: fixed;
-    z-index: 2;
-    top: 0px;
-    right: -100%;
-    transition: right 0.3s 0s ease-in;
-    -webkit-transition: right 0.3s 0s ease-in;
-    overflow: auto;
-
-}
-
-.displayOrder.activate {
-    right: 0%;
-}
-
-.close {
-    position: absolute;
-    cursor: pointer;
-    top: 10px;
-    left: 10px;
-    font-size: 2.0rem;
-    color: white;
-}
-
-.close:hover{
-    color: black;
-}
-
-.yourOrder {
-    font-size: 2.7rem;
-    color: white;
-    font-weight: bold;
-    width: 300px;
-    margin: auto;
-    text-align: center;
-}
-
 
 .hamburger{
     cursor: pointer;

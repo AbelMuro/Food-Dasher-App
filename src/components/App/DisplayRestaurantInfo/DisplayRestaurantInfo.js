@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import {collection, query, orderBy} from 'firebase/firestore';
-import {useCollectionData, useCollection} from 'react-firebase-hooks/firestore'; 
+import {useCollection} from 'react-firebase-hooks/firestore'; 
 import {db} from '~/firebase';
 import './styles.css';
 
 //need to figure out why the app crashes when i refresh the page at this point
 function DisplayRestaurantInfo() {
     const {choosenRestaurant} = useParams();
-    console.log(choosenRestaurant)
     const collectionRef = collection(db, choosenRestaurant);
     const q = query(collectionRef, orderBy('order'));
     const [documents, loading, error] = useCollection(q);
@@ -16,12 +15,8 @@ function DisplayRestaurantInfo() {
     const [logo, setLogo] = useState(null);
     const navigate = useNavigate();
 
-    function handleChooseButton(item) {
-        //storing the item Data as a string into the local Storage 
-        const itemTitle = item.querySelector(".itemTitle").innerHTML;
-        localStorage.setItem(itemTitle, item.outerHTML);
-
-        //navigating to a different router
+    const handleItem = (item) => {
+        const itemTitle = item.name;
         navigate("/GoogleMap/" + choosenRestaurant + "/" + itemTitle)
     }
 
@@ -44,13 +39,13 @@ function DisplayRestaurantInfo() {
                 else{
                     const data = doc.data();
                     menu.push(
-                        <div className={"itemContainer"}>
+                        <div className={"itemContainer"} key={doc.id}>
                             <img className={"itemImage"} src={data.image} />    
                             <div className={"itemTitle"}>{data.name}</div>
                             {data.ingredients && <div className={"itemIngredients"}>{data.ingredients.join(',')}</div>}
                             {data.sauce && <div className={"itemSauces"}>{data.sauce.join(',')}</div>}
                             <div className={"itemPrice"}>${data.price.toFixed(2)}</div>
-                            <button className={"chooseItem"}>Select Item</button>
+                            <button className={"chooseItem"} onClick={() => handleItem(data)}>Select Item</button>
                         </div>  
                     )
                 }

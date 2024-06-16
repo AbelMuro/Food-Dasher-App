@@ -1,28 +1,19 @@
-import React, {useRef} from 'react'
+import React, {useRef, useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faHouse, faMagnifyingGlass, faCartShopping, faUser, faX, faBars} from '@fortawesome/free-solid-svg-icons'; 
+import {faHouse, faMagnifyingGlass, faCartShopping, faUser, faBars} from '@fortawesome/free-solid-svg-icons'; 
 import './styles.css';
-import CheckOut from './CheckOut';
-import {useMediaQuery} from 'react-responsive';
-
+import Cart from './Cart';
+import {useSelector, useDispatch} from 'react-redux';
 
 
 function NavigationBar() {
-    let mobile = useMediaQuery({query: "(max-width: 670px)"});
-    let displayOrder = useRef();
-    let navBar = useRef(null);
+    const navBar = useRef(null);
+    const dispatch = useDispatch();
 
-    if(!mobile && navBar.current){
-        navBar.current.classList.remove("closeOpen");
-    }
 
-    const displayCheckOut = () => {  
-        displayOrder.current.classList.toggle("activate");
-    }
-
-    const closeCheckOut = () => {
-        displayOrder.current.classList.toggle("activate"); 
+    const displayCart = () => {  
+        dispatch({type: 'OPEN_CART'})
     }
 
     const displayMenu = () => {
@@ -66,21 +57,11 @@ function NavigationBar() {
                     <div className={"whiteLine"}></div>
                 </ul>
 
-
-
-                <div className={"menuCart menuItem"} onClick={displayCheckOut}>
-                    <span ><FontAwesomeIcon icon={faCartShopping} className={"icon"}/></span>                   
-                </div>
-                <div className={"displayOrder"} ref={displayOrder}>
-                    <div className={"yourOrder"}>           
-                        Your Cart:
-                    </div>
-                    <div className={"close"} onClick={closeCheckOut}>
-                        <span> <FontAwesomeIcon icon={faX}/> </span>
-                    </div>
-                    <CheckOut />
+                <div className={"menuCart menuItem"} onClick={displayCart}>
+                    <span><FontAwesomeIcon icon={faCartShopping} className={"icon"}/></span>                   
                 </div>
 
+                <Cart/>
             </nav>
     )
 }

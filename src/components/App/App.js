@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import NavigationBar from './NavigationBar'
 import HomePage from './HomePage';
@@ -7,6 +7,9 @@ import DisplayRestaurantInfo from './DisplayRestaurantInfo'
 import DisplayItem from './DisplayItem'
 
 function App() {
+
+
+
     return(
             <BrowserRouter> 
                 <NavigationBar />
@@ -15,6 +18,7 @@ function App() {
                     <Route path="/GoogleMap" element={<Map />}/>
                     <Route path="/GoogleMap/:choosenRestaurant" element={<DisplayRestaurantInfo />}/>
                     <Route path="/GoogleMap/:choosenRestaurant/:choosenItem" element={<DisplayItem />}/>
+                    <Route path='*' element={<div>404 page not found</div>}/>
                 </Routes>            
             </BrowserRouter>
     )

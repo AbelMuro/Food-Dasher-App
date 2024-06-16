@@ -1,0 +1,25 @@
+.selectQuantity {
+    font-family: 'Roboto', sans-serif;
+}
+
+.decreaseQuantity, .increaseQuantity {
+    border-radius: 100%;
+    border: none;
+    padding: 8px;
+    cursor: pointer
+}
+
+.decreaseQuantity {
+    background-color: red;
+}
+
+.increaseQuantity {
+    background-color: green;
+    margin-bottom: 1.2rem;
+}
+
+.choosenItemPrice {
+    font-weight: bold; 
+    font-size: 1.7rem;
+    margin-bottom: 1.2rem;
+}
