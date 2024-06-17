@@ -1,15 +1,16 @@
-import React, { useState, useRef, useEffect} from 'react';
-import {GoogleMap, useLoadScript, Autocomplete, Marker, DirectionsRenderer} from '@react-google-maps/api';
+import React, { useState, useRef} from 'react';
+import {GoogleMap, useLoadScript, Autocomplete, DirectionsRenderer} from '@react-google-maps/api';
 import {useNavigate} from 'react-router-dom';
 import './styles.css';
 import customStyles from './GoogleMapsStyles';
+import {useDispatch} from 'react-redux';
 
 const options = {
     styles: customStyles
 }
 
 function Map() {
-
+    const dispatch = useDispatch();
     const [libraries] = useState(["places"]);                       
     const {isLoaded} = useLoadScript({  
         googleMapsApiKey: process.env.GOOGLE_MAP_KEY,          
@@ -28,6 +29,7 @@ function Map() {
 
     function handleClick() {
         let restaurantName = restaurantInput.current.value;
+        dispatch({type: 'UPDATE_USERS_LOCATION', latlng: usersLocationLatLng.current});
         navigate("/GoogleMap/" + restaurantName);
     }
 
@@ -62,21 +64,22 @@ function Map() {
 
     //the three functions below will be called in succession (bottom to top)
     async function calculateRoute(usersLocation, destination) {
-        let results;  
-        try {       
+ 
+        try {     
+            let results;               
             let directionService = new google.maps.DirectionsService(map);
             results = await directionService.route({                
                 origin: usersLocation,                                                      
                 destination: destination,  
                 travelMode: google.maps.TravelMode.DRIVING                
             });  
+            setDirections(results);        
+            setDuration(results.routes[0].legs[0].duration.text)              
         }
         catch(error) {
             alert("Invalid Directions")
             return;
         } 
-        setDirections(results);        
-        setDuration(results.routes[0].legs[0].duration.text)  
     }    
     async function getLocationDetails(place, placesService) {
         let results = await new Promise ((resolve) => {
@@ -140,6 +143,7 @@ function Map() {
                 })
                 ///creating a click event for the marker
                 marker.addListener("click", () => {
+                    dispatch({type: 'UPDATE_RESTAURANT_LOCATION', latlng: position});
                     //getting details of a location that is marked by a marker
                     let promise = getLocationDetails(place, placesService);
                     promise.then((results)=> {                   
@@ -153,13 +157,13 @@ function Map() {
             })    
         });         
     }
-    async function CreateHomeMarkerAndSearch(){
+    function CreateHomeMarkerAndSearch(){
         //this function will first geocode the users address into lat and long
         //then it will create a home marker and position it based on the lat and long
         //then it will call searchNearbyRestaurants for places that are near the users' location
         geocoding(addressInput.current.value)
             .then((inputedAddress) => {
-                if(inputedAddress == "")
+                if(inputedAddress === "")
                     return;  
                 usersLocationLatLng.current = inputedAddress;
                 let marker = new google.maps.Marker({                                   //this marker will automatically appear on the map
@@ -277,6 +281,7 @@ function Map() {
                 <div className="selectedMarker"> 
                 </div>                  
                 {directions && <DirectionsRenderer directions={directions}/> }
+
                 {restaurantInfo && 
                     <div className={'selectedMarker'}>
                         <img className={'markerImage'} src={restaurantInfo['markerImage']}/>

@@ -1,22 +1,22 @@
-//initializing REACT.....
-import React, {useState} from "react";
+//initializing REACT
+import React from "react";
 import ReactDOM from "react-dom/client";
 
 //initializing redux
 import {Provider} from 'react-redux';
-import store from './store';
+import store, {persistedStore} from './store';
+import {PersistGate} from 'redux-persist/integration/react'
 
 //importing the actual app
 import App from './components/App';
 
-
 //rendering the app to the DOM
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const rootRef = document.getElementById("root")
+const root = ReactDOM.createRoot(rootRef);
 root.render(
-    <>
-        <Provider store={store}>
-            <App/>
-        </Provider>       
-    </>
-
+    <Provider store={store}>
+        <PersistGate persistor={persistedStore}>
+            <App/>                
+        </PersistGate>
+    </Provider>       
 );

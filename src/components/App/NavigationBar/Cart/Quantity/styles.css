@@ -1,20 +1,27 @@
 .quantityContainer{
-    text-align: center;
     color: white;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: auto;
 }
 
-.decrease, .increase {
+.incrementQuantity, .decrementQuantity {
+    width: 30px;
+    height: 30px;
     border-radius: 100%;
     border: none;
-    padding: 8px;
-    cursor: pointer
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
-.decrease {
+.incrementQuantity {
     background-color: red;
 }
 
-.increase {
+.decrementQuantity {
     background-color: green;
-    margin-bottom: 1.2rem;
+    margin-bottom: 0px;
 }

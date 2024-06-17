@@ -32,6 +32,8 @@
     "react-responsive": "^9.0.0",
     "react-router-dom": "^6.3.0",
     "redux": "^4.2.0",
+    "redux-deep-persist": "^1.0.7",
+    "redux-persist": "^6.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

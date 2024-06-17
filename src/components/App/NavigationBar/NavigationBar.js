@@ -26,7 +26,6 @@ function NavigationBar() {
 
     return (
             <nav className={"navBar"} ref={navBar}>
-        
                 <div className={"hamburger"} onClick={displayMenu}>
                     <span><FontAwesomeIcon icon={faBars} className={"icon"}/></span>
                 </div>

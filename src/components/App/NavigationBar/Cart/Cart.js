@@ -2,9 +2,9 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {faX} from '@fortawesome/free-solid-svg-icons'; 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {v4 as uuid} from 'uuid';
-import './styles.css'; 
+import CheckOut from './CheckOut';
 import Quantity from './Quantity';
+import './styles.css'; 
 
 function Cart() {
     const dispatch = useDispatch();
@@ -26,48 +26,58 @@ function Cart() {
             </div>
             <section>
                 {
+                    items.length ? 
                     items.map((item) => {
+                        const image = item.image;
+                        const name = item.name;
+                        const excludedIngredients = item.excludedIngredients;
+                        const sauces = item.sauces;
+                        const price = item.price;
+                        const quantity = item.quantity;
+                        const id = item.id;
+
                         return(
-                            <div className='itemContainerCheckOut' key={item.id}>
-                                <img className='itemImageCheckOut' src={item.image}/>
+                            <div className='itemContainerCheckOut' key={id}>
+                                <img className='itemImageCheckOut' src={image}/>
                                 <div className='itemNameCheckOut'>
                                     <span className='propertyTitles'>
-                                        Name: 
+                                        Name:&nbsp; 
                                     </span>
                                     <span>
-                                        {item.name}
+                                        {name}
                                     </span>
                                 </div>
-                                {(item.excludedIngredients && item.excludedIngredients.length !== 0) && <div className='itemIngredientsCheckOut'>
+                                {excludedIngredients.length !== 0 && <div className='itemIngredientsCheckOut'>
                                     <span className='propertyTitles'>
-                                        Exclude:
+                                        Exclude:&nbsp;
                                     </span>
                                     <span>
-                                        {item.excludedIngredients.join(', ')}
+                                        {excludedIngredients.join(', ')}
                                     </span>
                                 </div>}
-                                {(item.sauces && item.sauces.length !== 0) && <div className='itemIngredientsCheckOut'>
+                                {sauces.length !== 0 && <div className='itemIngredientsCheckOut'>
                                     <span className='propertyTitles'>
-                                        Sauces:
+                                        Sauces:&nbsp;
                                     </span>
                                     <span>
-                                        {item.sauces.join(', ')}
+                                        {sauces.join(', ')}
                                     </span>
                                 </div>}
                                 <div className='itemPriceCheckOut'>
                                     <span className='propertyTitles'>
-                                        Price:
+                                        Price:&nbsp;
                                     </span>
                                     <span>
-                                        {item.price.toFixed(2)}
+                                        ${(price * quantity).toFixed(2)}
                                     </span>
                                 </div>
-                                <Quantity prevQuantity={item.quantity} itemId={item.id}/>
+                                <Quantity prevQuantity={quantity} itemId={id}/>
                             </div>
                         )
-                    })
+                    }) : <p className='cartMessage'>Cart is empty</p>
                 }                
             </section>
+            <CheckOut/>
         </div>
     )
 }

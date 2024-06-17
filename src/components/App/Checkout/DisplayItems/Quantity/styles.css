@@ -1,0 +1,28 @@
+.item-quantity{
+    grid-column: 3/4;
+    grid-row: 1/4;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-weight: 700;
+}
+
+.increment{
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 100%;
+    background-color: green;
+    cursor: pointer;
+}
+
+.decrement{
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 100%;
+    background-color: red;
+    cursor: pointer;
+}
