@@ -1,0 +1,52 @@
+.form-container{
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.instructions-container{
+    outline: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.instructions-container > textarea {
+    resize: none;
+    border: 1px solid green;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.instructions-container > textarea:focus{
+    outline: none;
+    border: 2px solid green;
+}
+
+.radioButtons{
+    border: none;
+    outline: none;
+    display: grid;
+    grid-template-columns: 20px auto;
+    column-gap: 20px;
+    row-gap: 15px;
+}
+
+.radioButtons > input[type='radio'] {
+    justify-self: center;
+    width: 20px;
+    height: 20px;
+    accent-color: green;
+}
+
+.form-title{
+    grid-column: 1/3;
+    grid-row: 1/2;
+    color: green;
+    font-family: 'Bebas Neue';
+    font-size: 1.5rem;
+}
+
+

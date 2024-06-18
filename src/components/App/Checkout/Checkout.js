@@ -4,9 +4,8 @@ import './styles.css';
 import {useSelector} from 'react-redux';
 import { formatDeliveryTime } from '~/Common/functions';
 import DisplayItems from './DisplayItems';
+import Form from './Form';
 
-
-//this is where i left off
 function Checkout() {
     const deliveryTime = useSelector(state => state.checkout.deliveryOption.deliveryTime);
 
@@ -17,10 +16,8 @@ function Checkout() {
                 <h1>
                     DELIVERY TIME: {`${formatDeliveryTime(deliveryTime)}-${formatDeliveryTime(Number(deliveryTime) + 30)} `}
                 </h1>
-                <DisplayItems/>
-                <form className='formContainer'>
-                    
-                </form>        
+                <DisplayItems/>     
+                <Form/>
             </section>        
         </>
 
