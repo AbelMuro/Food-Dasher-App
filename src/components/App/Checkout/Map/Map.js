@@ -30,9 +30,6 @@ function Map() {
         dispatch({type: 'UPDATE_DELIVERY_TIME', deliveryTime: Number(travelTime.split(' ')[0]) + 20});        
     }
 
-    useEffect(() => {
-        console.log(directions);
-    }, [directions])
 
     return isLoaded && (
         <GoogleMap 

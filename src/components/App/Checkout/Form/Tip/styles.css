@@ -1,0 +1,30 @@
+.tip{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: none;
+}
+
+.enter-tip{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tipInput {
+    width: 30%;
+    height: 35px;
+    padding-left: 15px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 1px solid green;
+}
+
+.tipInput:focus{
+    outline: none;
+    border: 2px solid green;
+}
+
+.tipLabel{
+    font-weight: 700;
+}

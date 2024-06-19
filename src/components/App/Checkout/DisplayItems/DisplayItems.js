@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Quantity from './Quantity';
 import './styles.css';
 
 function DisplayItems() {
     const items = useSelector(state => state.cart.items);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!items.length)
+            navigate('/');
+    }, [items])
 
     return(
         <section className='items-container'>

@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;    
+    position: relative;
 }
 
 .cardNumber{
@@ -53,4 +54,12 @@
 
 .cardLabel{
     font-weight: 700;
+}
+
+.errorMessage{
+    color: red;
+    font-weight: 700;
+    position: absolute;
+    bottom: -18px;
+    left: 10px;
 }
