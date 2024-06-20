@@ -3,7 +3,7 @@ import {GoogleMap, useLoadScript, Autocomplete, DirectionsRenderer} from '@react
 import {useNavigate} from 'react-router-dom';
 import './styles.css';
 import customStyles from './GoogleMapsStyles';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 const options = {
     styles: customStyles
@@ -11,6 +11,7 @@ const options = {
 
 function Map() {
     const dispatch = useDispatch();
+    const prevRestaurant = useSelector(state => state.cart.restaurant);
     const [libraries] = useState(["places"]);                       
     const {isLoaded} = useLoadScript({  
         googleMapsApiKey: process.env.GOOGLE_MAP_KEY,          
@@ -27,10 +28,27 @@ function Map() {
     const markers = useRef([]);                                   //an array to contain all the markers on the map
     const navigate = useNavigate(); 
 
+    function updateRestaurant(restaurantName) {
+        dispatch({type: 'UPDATE_USERS_LOCATION', latlng: usersLocationLatLng.current});
+        dispatch({type: 'UPDATE_RESTAURANT', restaurant: restaurantName})
+        navigate("/GoogleMap/" + restaurantName);    
+    }
+
+
     function handleClick() {
         let restaurantName = restaurantInput.current.value;
-        dispatch({type: 'UPDATE_USERS_LOCATION', latlng: usersLocationLatLng.current});
-        navigate("/GoogleMap/" + restaurantName);
+
+        if(prevRestaurant && prevRestaurant !== restaurantName){
+            const confirmed = confirm(`You already have a cart with items from ${prevRestaurant}, would you like to clear the cart and order from ${restaurantName}?`);
+            if(confirmed){
+                dispatch({type: 'CLEAR'})
+                updateRestaurant(restaurantName)
+            }
+            else
+                setRestaurantInfo(null)
+        }
+        else
+            updateRestaurant(restaurantName);
     }
 
 

@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch} from 'react-redux';
-import './styles.css';
+import styles from './styles.module.css';
 
 function DeliveryOption() {
     const [option, setOption] = useState('standard');
@@ -33,6 +33,8 @@ function DeliveryOption() {
             setOpen(true)
         else 
             dispatch({type: 'UPDATE_SCHEDULE', schedule: ''});
+
+        dispatch({type: 'UPDATE_DELIVERY_OPTION', option})
     }, [option])
 
     useEffect(() => {
@@ -67,8 +69,8 @@ function DeliveryOption() {
 
     return(
         <>
-            <fieldset className='radioButtons'>
-                <label className='form-title'>
+            <fieldset className={styles.radioButtons}>
+                <label className={styles.title}>
                     Select Delivery Option
                 </label>
                 <input 
@@ -79,7 +81,7 @@ function DeliveryOption() {
                     checked={option === 'standard'}
                     onChange={handleOption}
                     />
-                <label for='standard'>
+                <label htmlFor='standard'>
                     Standard
                 </label>
                 <input 
@@ -90,8 +92,8 @@ function DeliveryOption() {
                     checked={option === 'express'}
                     onChange={handleOption}
                     />
-                <label for='express'>
-                    Express
+                <label htmlFor='express'>
+                    Express + $5
                 </label>
                 <input 
                     type='radio' 
@@ -101,12 +103,13 @@ function DeliveryOption() {
                     checked={option === 'schedule'}
                     onChange={handleOption}
                     />
-                <label for='schedule'>
+                <label htmlFor='schedule'>
                     Schedule
                 </label>
             </fieldset>  
-            <div className='overlay' style={open ? {display: 'block'} : {display: 'none'}}>
-                <dialog open={open} className='dialog'>
+            <input type='hidden' value={schedule} name='schedule'/>
+            <div className={styles.overlay} style={open ? {display: 'block'} : {display: 'none'}}>
+                <dialog open={open} className={styles.dialog}>
                     <h1>
                         Schedule Order
                     </h1>
@@ -120,7 +123,7 @@ function DeliveryOption() {
                                 )
                             })}
                     </select>
-                    <div className='buttonContainer'>
+                    <div className={styles.buttonContainer}>
                         <button type='button' onClick={handleSelect}>
                             Select
                         </button>  

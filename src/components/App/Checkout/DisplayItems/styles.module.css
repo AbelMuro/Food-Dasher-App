@@ -1,4 +1,4 @@
-.items-container{
+.container{
     display: flex;
     gap: 10px;
     flex-direction: column;
@@ -25,13 +25,43 @@
     margin: 0px;
 }
 
-.item > p.item-list{
+.item > p.item_list{
     grid-row: 2/3;
     grid-column: 2/3;
 }
 
-.item > p.item-price{
+.item > p.item_price{
     grid-row: 3/4;
     grid-column: 2/3;
     font-weight: 700;
+}
+
+@media(max-width: 480px){
+    .container{
+        gap: 25px;
+    }
+
+    .item{
+        grid-template-columns: 230px;
+    }
+
+    .item > img{
+        grid-row: 1/2;
+        grid-column: 1/2;
+    }
+
+    .item > h1{
+        grid-row: 2/3;
+        grid-column: 1/2;
+    }
+
+    .item > p.item_list{
+        grid-row: 3/4;
+        grid-column: 1/2;
+    }
+
+    .item > p.item_price{
+        grid-row: 4/5;
+        grid-column: 1/2;
+    }
 }

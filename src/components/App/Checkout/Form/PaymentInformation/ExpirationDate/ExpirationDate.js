@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import styles from './styles.module.css';
 
 function ExpirationDate() {
     const [exp, setExp] = useState('');
@@ -41,15 +42,16 @@ function ExpirationDate() {
     }
 
     return(
-        <div className='expirationDate'>
-            <label className='cardLabel'>
+        <div className={styles.expirationDate}>
+            <label className={styles.cardLabel} htmlFor='expiration'>
                 Expiration
             </label>
             <input 
                 style={error ? {border: '1px solid red'} : {}}
-                className='cardInput' 
+                className={styles.cardInput} 
                 type='text' 
                 name='expirationDate'
+                id='expiration'
                 value={exp} 
                 pattern='^[0-9]{2}/[0-9]{2}$'
                 onChange={handleExp}
@@ -58,8 +60,8 @@ function ExpirationDate() {
                 placeholder='MM/YY'
                 required
                 />
-                {error === 'empty' && <div className='errorMessage'>can't be empty</div>}
-                {error === 'invalid' && <div className='errorMessage'>invalid date</div>}
+                {error === 'empty' && <div className={styles.errorMessage}>can't be empty</div>}
+                {error === 'invalid' && <div className={styles.errorMessage}>invalid date</div>}
         </div>
     )
 }

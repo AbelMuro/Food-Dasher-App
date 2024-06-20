@@ -1,42 +1,13 @@
 
-.card-container {
-    width: 420px;
-    display: grid;
-    grid-template-columns: repeat(3, 30%);
-    column-gap: 20px;
-    row-gap: 25px;
-    border: none;
-    outline: none;
-}
-
-.cardNumber, .expirationDate, .cvc, .zipCode{
+.cvc{
     display: flex;
     flex-direction: column;
     gap: 10px;    
     position: relative;
-}
-
-.cardNumber{
-    grid-column: 1/4;
-    grid-row: 2/3;
-    width: 100%;
-
-}
-
-.expirationDate{
-    grid-column: 1/2;
-    grid-row: 3/4;
-}
-
-.cvc{
     grid-column: 2/3;
-    grid-row: 3/4;
+    grid-row: 3/4;    
 }
 
-.zipCode{
-    grid-column: 3/4;
-    grid-row: 3/4;
-}
 
 .cardInput {
     width: 100%;

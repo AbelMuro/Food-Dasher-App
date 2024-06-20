@@ -1,8 +1,15 @@
 import React from 'react';
 import ImageCarousel from './ImageCarousel';
+import { useNavigate } from 'react-router-dom';
 import './styles.css';
 
 function HomePage() {
+    const navigate = useNavigate();
+
+    const handleSignUp = () => {
+        navigate('/Register');
+    }
+
         return (
         <> 
             <section className={"homeBanner"}>
@@ -30,7 +37,7 @@ function HomePage() {
                     Want to become a Food Dasher? <br/>
                     You can sign up with a click of a button!   
                 </p>
-                <button className={"signUpButton"}> Sign Up </button>
+                <button className={"signUpButton"} onClick={handleSignUp}> Sign Up </button>
             </section>
             <section className={"imageCarousel"}>
                 <ImageCarousel />

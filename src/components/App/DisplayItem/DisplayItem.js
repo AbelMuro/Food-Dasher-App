@@ -23,22 +23,32 @@ function DisplayItem() {
     const handleGoBackButton = () => {
         navigate(-1);
     }
-    
+
     const handleAddToOrder = (e) => {
         e.preventDefault();
         const newItem = {}   
         let ingredients = e.target.elements.ingredients;
         newItem['excludedIngredients'] = [];
-        ingredients && ingredients.forEach((checkbox) => {
-            if(checkbox.checked)
-                newItem['excludedIngredients'].push(checkbox.value)
-        })
+        console.log(ingredients);
+
+        if(ingredients && ingredients.length)
+            ingredients.forEach((checkbox) => {
+                if(checkbox.checked)
+                    newItem['excludedIngredients'].push(checkbox.value);
+            });
+        else if(ingredients)
+            newItem['excludeIngredients'] = ingredients.checked ? [ingredients.value] : [];
+
         let sauces = e.target.elements.sauces;
         newItem['sauces'] = [];
-        sauces && sauces.forEach((checkbox) => {
-            if(checkbox.checked)
-                newItem['sauces'].push(checkbox.value);
-        })                 
+        if(sauces && sauces.length)
+            sauces.forEach((checkbox) => {
+                if(checkbox.checked)
+                    newItem['sauces'].push(checkbox.value);
+            });
+        else if(sauces)
+            newItem['sauces'] = sauces.checked ? [sauces.value] : [];
+            
         newItem["image"] = itemData.image;
         newItem["name"] = itemData.name;
         newItem["quantity"] = quantityRef.current;

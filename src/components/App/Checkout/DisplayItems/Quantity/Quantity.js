@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons'; 
 import {useDispatch} from 'react-redux';
-import './styles.css';
+import styles from './styles.module.css';
 
 function Quantity({prevQuantity, itemId}) {
     const [quantity, setQuantity] = useState(prevQuantity);
@@ -37,12 +37,12 @@ function Quantity({prevQuantity, itemId}) {
 
 
     return(
-        <div className='item-quantity'>
-            <button className='decrement' onClick={handleDecrement}>
+        <div className={styles.quantity}>
+            <button className={styles.decrement} onClick={handleDecrement}>
                 <FontAwesomeIcon icon={faMinus} className={"icon"}/>
             </button>
             {quantity}
-            <button className='increment' onClick={handleIncrement}>
+            <button className={styles.increment} onClick={handleIncrement}>
                 <FontAwesomeIcon icon={faPlus} className={"icon"}/>
             </button>
         </div>

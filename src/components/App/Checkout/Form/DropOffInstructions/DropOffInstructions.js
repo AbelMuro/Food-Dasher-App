@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import styles from './styles.module.css';
 
 function DropOffInstructions(){
     const [text, setText] = useState('');
@@ -8,8 +9,8 @@ function DropOffInstructions(){
     }
 
     return(
-        <fieldset className='instructions-container'>
-            <label className='form-title'>
+        <fieldset className={styles.container}>
+            <label className={styles.title}>
                 Drop-off Instructions
             </label>
             <textarea 

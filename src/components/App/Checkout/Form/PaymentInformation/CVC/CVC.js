@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import styles from './styles.module.css';
 
 function CVC() {
     const [cvc, setCvc] = useState('');
@@ -37,15 +38,16 @@ function CVC() {
     }
 
     return(
-        <div className='cvc'>
-            <label className='cardLabel'>
+        <div className={styles.cvc}>
+            <label className={styles.cardLabel} htmlFor='cvc'>
                 CVC
             </label>
             <input 
                 style={error ? {border: '1px solid red'} : {}}
                 type='text' 
                 name='cvc'
-                className='cardInput'
+                id='cvc'
+                className={styles.cardInput}
                 placeholder='CVC'
                 pattern='[0-9]{3}'
                 value={cvc}
@@ -54,8 +56,8 @@ function CVC() {
                 onInvalid={handleInvalid}
                 required
                 />
-            {error === 'empty' && <div className='errorMessage'>can't be empty</div>}
-            {error === 'invalid' && <div className='errorMessage'>invalid cvc</div>}
+            {error === 'empty' && <div className={styles.errorMessage}>can't be empty</div>}
+            {error === 'invalid' && <div className={styles.errorMessage}>invalid cvc</div>}
         </div>
     )
 }

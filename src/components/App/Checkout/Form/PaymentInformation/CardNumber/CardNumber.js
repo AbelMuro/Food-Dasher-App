@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import icons from './icons';
+import styles from './styles.module.css'
 
 function CardNumber(){
     const [number, setNumber] = useState('');
@@ -45,27 +47,29 @@ function CardNumber(){
     }
 
     return(
-        <div className='cardNumber'>
-            <label className='cardLabel'>
+        <div className={styles.cardNumber}>
+            <label className={styles.cardLabel} htmlFor='cardNumber'>
                 Card Number
             </label>
+            <img className={styles.cardIcon} src={icons['creditCard']}/>
             <input 
-                style={error ? {border: '1px solid red'} : {}}
+                style={error ? {border: '1px solid red', paddingLeft: 50} : {paddingLeft: 50}}
                 onBlur={handleBlur}
                 onInvalid={handleInvalid}
                 onChange={handleNumber}
+                id='cardNumber'
                 type='tel' 
                 name='cardNumber'
-                inputmode='numeric' 
+                inputMode='numeric' 
                 pattern='[0-9\s]{20}'
                 placeholder='xxxx xxxx xxxx xxxx'
                 autoComplete='cc-number'
                 value={number}
-                className='cardInput'
+                className={styles.cardInput}
                 required
                 />
-            {error === 'empty' && <div className='errorMessage'>can't be empty</div>}
-            {error === 'invalid' && <div className='errorMessage'>invalid card number</div>}
+            {error === 'empty' && <div className={styles.errorMessage}>can't be empty</div>}
+            {error === 'invalid' && <div className={styles.errorMessage}>invalid card number</div>}
         </div>
     )
 }

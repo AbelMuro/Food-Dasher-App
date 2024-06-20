@@ -1,34 +1,38 @@
-.tip{
+.zipCode{
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    border: none;
+    gap: 10px;    
+    position: relative;
+    grid-column: 3/4;
+    grid-row: 3/4;
 }
 
-.enter-tip{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
 
-.tipInput {
-    width: 30%;
+.cardInput {
+    width: 100%;
     height: 35px;
-    padding-left: 15px;
+    padding-left: 10px;
     font-size: 20px;
     border-radius: 10px;
     border: 1px solid green;
 }
 
-.tipInput:focus{
+.cardInput:focus{
     outline: none;
     border: 2px solid green;
 }
 
-.tipLabel{
+.cardLabel{
     font-weight: 700;
 }
 
+.errorMessage{
+    color: red;
+    font-weight: 700;
+    position: absolute;
+    bottom: -18px;
+    left: 10px;
+}
 
 .form-title{
     color: green;

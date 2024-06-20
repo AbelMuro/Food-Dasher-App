@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import styles from './styles.module.css';
 
 function ZipCode() {
     const [zip, setZip] = useState('');
@@ -34,16 +35,17 @@ function ZipCode() {
     }
 
     return(
-        <div className='zipCode'>
-            <label className='cardLabel'>
+        <div className={styles.zipCode}>
+            <label className={styles.cardLabel} htmlFor='zip'>
                 Zip Code
             </label>
             <input 
                 style={error ? {border: '1px solid red'} : {}}
                 type='text' 
                 name='zip'
+                id='zip'
                 placeholder='ZIP'
-                className='cardInput' 
+                className={styles.cardInput} 
                 value={zip}
                 pattern='[0-9]{5}'
                 onChange={handleZip}
@@ -51,8 +53,8 @@ function ZipCode() {
                 onInvalid={handleInvalid}
                 required
                 />
-            {error === 'empty' && <div className='errorMessage'>can't be empty</div>}
-            {error === 'invalid' && <div className='errorMessage'>invalid zip</div>}
+            {error === 'empty' && <div className={styles.errorMessage}>can't be empty</div>}
+            {error === 'invalid' && <div className={styles.errorMessage}>invalid zip</div>}
         </div>
     )
 }

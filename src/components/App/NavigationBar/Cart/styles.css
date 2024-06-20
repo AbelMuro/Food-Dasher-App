@@ -9,7 +9,6 @@
     top: 0px;
     transition: right 0.3s 0s ease-in;
     -webkit-transition: right 0.3s 0s ease-in;
-    overflow: auto;
 }
 
 .itemContainerCheckOut{
@@ -25,6 +24,20 @@
     left: 20px;
     font-size: 2.0rem;
     color: white;
+}
+
+.cartContainer{
+    height: 85vh;
+    overflow: auto;
+}
+
+.cartContainer::-webkit-scrollbar{
+    background-color: transparent;
+}
+
+.cartContainer::-webkit-scrollbar-thumb{
+    background-color: rgb(10, 59, 10);
+    border-radius: 10px;
 }
 
 .close:hover{

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import styles from './styles.module.css';
 
 function DropOffOption() {
     const [option, setOption] = useState('hand it to me');
@@ -8,8 +9,8 @@ function DropOffOption() {
     }
 
     return(
-        <fieldset className='radioButtons'>
-            <label className='form-title'>
+        <fieldset className={styles.radioButtons}>
+            <label className={styles.title}>
                 Drop-Off Options
             </label>
             <input 
@@ -20,7 +21,7 @@ function DropOffOption() {
                 checked={option === 'hand it to me'}
                 onChange={handleOption}
                 />
-            <label for='handItToMe'>
+            <label htmlFor='handItToMe'>
                 Hand it to me
             </label>
             <input 
@@ -31,7 +32,7 @@ function DropOffOption() {
                 checked={option === 'leave it at my door'}
                 onChange={handleOption}
                 />
-            <label for='leaveItAtMyDoor'>
+            <label htmlFor='leaveItAtMyDoor'>
                 Leave it at my door
             </label>
         </fieldset>

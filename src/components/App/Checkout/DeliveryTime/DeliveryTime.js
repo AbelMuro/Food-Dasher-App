@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import { formatDeliveryTime } from '~/Common/functions';
 import {useSelector} from 'react-redux';
-import './styles.css'
+import styles from './styles.module.css'
 
 function DeliveryTime(){
     const deliveryTime = useSelector(state => state.checkout.deliveryOption.deliveryTime);
@@ -15,7 +15,7 @@ function DeliveryTime(){
     }, [schedule, deliveryTime])
 
     return(
-        <h1 className='deliveryTime'>
+        <h1 className={styles.deliveryTime}>
             DELIVERY TIME: {delivery}
         </h1>
     )

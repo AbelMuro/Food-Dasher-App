@@ -22,12 +22,14 @@ function Tip() {
                 Tip
             </label>
             <fieldset className='tip'>
-                <label className='tipLabel'>
+                <label className='tipLabel' htmlFor='tip'>
                     Enter Tip
                 </label>
                 <input 
                     value={tip}
                     onChange={handleTip}
+                    name='tip'
+                    id='tip'
                     className='tipInput'
                     placeholder='5.00'
                     />

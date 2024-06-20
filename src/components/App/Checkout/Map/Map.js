@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {GoogleMap, useLoadScript, Marker, DirectionsRenderer} from '@react-google-maps/api';
 import {useSelector, useDispatch} from 'react-redux';
-import './styles.css';
+import styles from './styles.module.css';
 
 function Map() {
     const {user, restaurant} = useSelector(state => state.location);
@@ -33,7 +33,7 @@ function Map() {
 
     return isLoaded && (
         <GoogleMap 
-            mapContainerClassName={"checkoutMap"}            //you can pass a class name from a css file that will define the way the map will render
+            mapContainerClassName={styles.map}            //you can pass a class name from a css file that will define the way the map will render
             center={user}               
             zoom={13}                                   //zoom is the initial zoom when the map is loaded onto the DOM
             onLoad={onLoad}               //when the google map loads, it will initialize the map state

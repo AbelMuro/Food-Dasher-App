@@ -18,10 +18,11 @@
 }
 
 .incrementQuantity {
-    background-color: red;
+    background-color: green;    
+    
 }
 
 .decrementQuantity {
-    background-color: green;
+    background-color: red;
     margin-bottom: 0px;
 }

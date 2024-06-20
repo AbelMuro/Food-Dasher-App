@@ -3,12 +3,14 @@ import CardNumber from './CardNumber';
 import ExpirationDate from './ExpirationDate';
 import CVC from './CVC';
 import ZipCode from './ZipCode';
-import './styles.css';
+import styles from './styles.module.css';
 
+
+//i will need to work on the responsiveness of this component
 function PaymentInformation() {
     return(
-        <fieldset className='card-container'>
-            <label className='form-title'>
+        <fieldset className={styles.container}>
+            <label className={styles.title}>
                 Payment Information
             </label>
             <CardNumber/>

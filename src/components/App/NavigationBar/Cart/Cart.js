@@ -11,7 +11,6 @@ function Cart() {
     const open = useSelector(state => state.cart.open);
     const items = useSelector(state => state.cart.items);
     
-
     const closeCart = () => {
         dispatch({type: 'CLOSE_CART'})
     }
@@ -24,7 +23,7 @@ function Cart() {
             <div className={"close"} onClick={closeCart}>
                 <span> <FontAwesomeIcon icon={faX}/> </span>
             </div>
-            <section>
+            <section className='cartContainer'>
                 {
                     items.length ? 
                     items.map((item) => {

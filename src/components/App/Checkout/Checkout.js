@@ -1,6 +1,6 @@
 import React from 'react';
 import Map from './Map';
-import './styles.css';
+import styles from './styles.module.css';
 import DisplayItems from './DisplayItems';
 import Form from './Form';
 import DeliveryTime from './DeliveryTime';
@@ -10,7 +10,7 @@ function Checkout() {
     return(
         <>
             <Map/>
-            <section className='checkout-Container'>
+            <section className={styles.container}>
                 <DeliveryTime/>
                 <DisplayItems/>     
                 <Form/>

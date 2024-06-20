@@ -5,12 +5,15 @@ import './styles.css'
 function TotalCost() {
     const items = useSelector(state => state.cart.items);
     const tip = useSelector(state => state.checkout.tip);
+    const deliveryOption = useSelector(state => state.checkout.deliveryOption.option);
 
     const total = useMemo(() => {
+        const express = deliveryOption === 'express' ? 5 : 0;
+
         return items.reduce((acc, item) => {
             return acc + (item.quantity * item.price);
-        }, 0) + Number(tip);
-    }, [items, tip])
+        }, 0) + Number(tip) + express;
+    }, [items, tip, deliveryOption])
 
     return(
         <>
