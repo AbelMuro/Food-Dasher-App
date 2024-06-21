@@ -21,15 +21,14 @@
 }
 
 
-
-
-
-
-
-
-
 @media(max-width: 480px){
     .container{
+        width: 100%;
         gap: 50px;
+    }
+
+    .submit{
+        width: 320px;
+        align-self: center;
     }
 }

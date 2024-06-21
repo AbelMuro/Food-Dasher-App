@@ -1,4 +1,5 @@
 import React from 'react';
+import Form from './Form';
 import styles from './styles.module.css';
 
 function Register() {
@@ -8,6 +9,7 @@ function Register() {
                 <h1>
                     become a food dasher today!
                 </h1>
+                <Form/>
             </section>
         </div>
 

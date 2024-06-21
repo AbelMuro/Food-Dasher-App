@@ -1,0 +1,12 @@
+.totalCost{
+    font-size: 1.5rem;
+    font-family: 'Bebas Neue';
+    color: green;
+}
+
+@media(max-width: 480px){
+    .totalCost{
+        width: 320px;
+        margin: auto;
+    }
+}

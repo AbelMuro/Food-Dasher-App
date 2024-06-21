@@ -1,0 +1,32 @@
+.container{
+    position: relative;
+    width: 100%;
+}
+
+.select{
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    padding-left: 12px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.select:focus{
+    outline: none;
+}
+
+.plus{
+    position: absolute;
+    color: black;
+    left: 8px;
+    bottom: 11px;
+    font-weight: 700;
+}
+
+@media(max-width: 460px){
+    .plus{
+        left: 4px;
+    }
+}

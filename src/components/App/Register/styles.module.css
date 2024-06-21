@@ -9,10 +9,11 @@
 
 .register{
     width: 400px;
-    height: 600px;
+    padding: 30px;
     background-color: green;
     border-radius: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -22,4 +23,19 @@
     color: white;
     font-family: 'Bebas Neue';
     font-size: 35px;
+}
+
+@media(max-width: 460px){
+    .container{
+        padding-top: 50px;
+        align-items: start;
+    }
+
+    .register{
+        width: 300px;
+    }
+
+    .register > h1{
+        font-size: 25px;
+    }
 }

@@ -1,14 +1,15 @@
-.tip{
+.container{
     display: flex;
     flex-direction: column;
     gap: 10px;
     border: none;
 }
 
-.enter-tip{
+.tip{
     display: flex;
     flex-direction: column;
     gap: 15px;
+    border: none;
 }
 
 .tipInput {
@@ -30,8 +31,16 @@
 }
 
 
-.form-title{
+.title{
     color: green;
     font-family: 'Bebas Neue';
     font-size: 1.5rem;
+}
+
+
+@media(max-width: 480px){
+    .container{
+        width: 320px;
+        align-self: center;
+    }
 }

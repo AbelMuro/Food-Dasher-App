@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import { useSelector } from 'react-redux';
-import './styles.css'
+import styles from './styles.module.css'
 
 function TotalCost() {
     const items = useSelector(state => state.cart.items);
@@ -17,7 +17,7 @@ function TotalCost() {
 
     return(
         <>
-            <p className='totalCost'>
+            <p className={styles.totalCost}>
                 Total Cost: ${total.toFixed(2)}
             </p>    
             <input type='hidden' value={total.toFixed(2)} name='totalCost'/>    

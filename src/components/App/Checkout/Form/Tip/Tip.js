@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import './styles.css'
+import styles from  './styles.module.css'
 
 function Tip() {
     const [tip, setTip] = useState('5.00');
@@ -17,12 +17,12 @@ function Tip() {
     }, [tip])
 
     return(
-        <div className='enter-tip'>
-            <label className='form-title'>
+        <div className={styles.container}>
+            <label className={styles.title}>
                 Tip
             </label>
-            <fieldset className='tip'>
-                <label className='tipLabel' htmlFor='tip'>
+            <fieldset className={styles.tip}>
+                <label className={styles.tipLabel} htmlFor='tip'>
                     Enter Tip
                 </label>
                 <input 
@@ -30,7 +30,7 @@ function Tip() {
                     onChange={handleTip}
                     name='tip'
                     id='tip'
-                    className='tipInput'
+                    className={styles.tipInput}
                     placeholder='5.00'
                     />
             </fieldset>        
