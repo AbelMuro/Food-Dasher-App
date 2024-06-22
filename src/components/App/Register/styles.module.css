@@ -16,14 +16,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
 }
 
-.register > h1{
-    color: white;
-    font-family: 'Bebas Neue';
-    font-size: 35px;
-}
 
 @media(max-width: 460px){
     .container{
@@ -33,9 +27,5 @@
 
     .register{
         width: 300px;
-    }
-
-    .register > h1{
-        font-size: 25px;
     }
 }

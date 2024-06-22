@@ -6,9 +6,6 @@ function Register() {
     return(
         <div className={styles.container}>
             <section className={styles.register}>
-                <h1>
-                    become a food dasher today!
-                </h1>
                 <Form/>
             </section>
         </div>

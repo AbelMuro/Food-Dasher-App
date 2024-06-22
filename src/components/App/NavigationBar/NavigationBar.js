@@ -1,10 +1,10 @@
-import React, {useRef, useEffect} from 'react'
+import React, {useRef} from 'react'
 import {Link} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHouse, faMagnifyingGlass, faCartShopping, faUser, faBars} from '@fortawesome/free-solid-svg-icons'; 
 import './styles.css';
 import Cart from './Cart';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 
 function NavigationBar() {
@@ -49,7 +49,7 @@ function NavigationBar() {
                     </li>
                     <div className={"whiteLine"}></div>
                     <li>
-                        <Link className={"menuItem"} to="/" onClick={closeNavBar}>
+                        <Link className={"menuItem"} to="/AccountOrLogin" onClick={closeNavBar}>
                             <span><FontAwesomeIcon icon={faUser} className={"icon"}/></span>
                         </Link> 
                     </li>

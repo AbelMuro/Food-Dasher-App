@@ -7,6 +7,7 @@ import DisplayRestaurantInfo from './DisplayRestaurantInfo'
 import DisplayItem from './DisplayItem'
 import Checkout from './Checkout';
 import Register from './Register';
+import AccountOrLogin from './AccountOrLogin';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/GoogleMap/:choosenRestaurant/:choosenItem" element={<DisplayItem />}/>
                     <Route path="/Checkout" element={<Checkout/>}/>
                     <Route path="/Register" element={<Register/>}/>
+                    <Route path="/AccountOrLogin" element={<AccountOrLogin/>}/>
                     <Route path='*' element={<div>404 page not found</div>}/>
                 </Routes>            
             </BrowserRouter>

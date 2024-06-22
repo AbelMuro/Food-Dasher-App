@@ -14,7 +14,6 @@ function EmailInput() {
     const handleBlur = (e) => {
         const isEmpty = e.target.validity.valueMissing;
         const patternMismatch = e.target.validity.patternMismatch;
-        console.log(patternMismatch);
 
         if(isEmpty)
             setError('empty');
