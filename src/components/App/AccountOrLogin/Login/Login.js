@@ -18,6 +18,7 @@ function Login() {
         const countryCode = e.target.elements.countryCode.value;
 
         try{
+            setLoading(true);
             const docRef = doc(db, `${countryCode + phoneNumber}/userInfo`);
             const userDoc = await getDoc(docRef);
 
@@ -86,7 +87,7 @@ function Login() {
                                     incorrect code
                                 </div>}
                             <button type='button' className={styles.submit} onClick={submitCode}>
-                                {loading ? <CircularProgress sx={{color: 'green'}}/> : 'Submit Code'}
+                                {loading ? <CircularProgress sx={{color: 'green'}} size='1.5rem'/> : 'Submit Code'}
                             </button>
                         </fieldset>  
                     :       
@@ -96,7 +97,7 @@ function Login() {
                             </label>   
                             <PhoneInput/>
                             <button className={styles.submit} id='log-in-button'>
-                                {loading ? <CircularProgress sx={{color: 'green'}}/> : 'Log in'}
+                                {loading ? <CircularProgress sx={{color: 'green'}} size='1.5rem'/> : 'Log in'}
                             </button>                    
                         </>
                 }

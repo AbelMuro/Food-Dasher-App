@@ -7,12 +7,14 @@ import styles from './styles.module.css';
 import { signInWithPhoneNumber, RecaptchaVerifier } from 'firebase/auth';
 import {doc, setDoc, getDoc} from 'firebase/firestore'
 import {auth, db} from '~/firebase'
+import {useNavigate} from 'react-router-dom';
 
 function Form() {
     const [confirm, setConfirm] = useState(null);
     const [code, setCode] = useState('');
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false)
+    const [error, setError] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,7 +36,7 @@ function Form() {
             await setDoc(docRef, {
                 email,
                 image: '',
-                phone: phoneNumber,
+                phone: countryCode + phoneNumber,
                 zip
             }) 
 
@@ -58,7 +60,8 @@ function Form() {
         setLoading(true);
         try{
             await confirm.confirm(code);    
-            console.log('success!');     
+            navigate('/AccountOrLogin');
+               
         }
         catch(error){
             setError(true);
@@ -97,7 +100,7 @@ function Form() {
                             incorrect code
                         </div>}
                     <button type='button' className={styles.submit} onClick={submitCode}>
-                        {loading ? <CircularProgress sx={{color: 'green'}}/> : 'Submit Code'}
+                        {loading ? <CircularProgress sx={{color: 'green'}} size='1.5rem'/> : 'Submit Code'}
                     </button>
                 </fieldset> : 
                 <>
@@ -108,7 +111,7 @@ function Form() {
                     <PhoneInput/>
                     <ZipInput/>
                     <button className={styles.submit} id='sign-in-button'>
-                        {loading ? <CircularProgress sx={{color: 'green'}}/> : 'Register'}
+                        {loading ? <CircularProgress sx={{color: 'green'}} size='1.5rem'/> : 'Register'}
                     </button>            
                 </>
             }

@@ -1,0 +1,14 @@
+.input{
+    width: 200px;
+}
+
+.image{
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+}
+
+.errorMessage{
+    color: red;
+    font-weight: 700;
+}

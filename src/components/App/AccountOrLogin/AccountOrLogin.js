@@ -1,25 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Login from './Login';
 import {auth} from '~/firebase';
 import {onAuthStateChanged} from 'firebase/auth';
+import Account from './Account';
 
-//now i need to create the account component
-// and i will need to redirect the form component in the register route to this component
+// now i need to find a way to let the user log in again if they want to delete their account
 function AccountOrLogin() {
     const [loggedIn, setLoggedIn] = useState(false);
 
     onAuthStateChanged(auth, (user) => {
-        console.log(user);
-
         if(user)
             setLoggedIn(true);
         else
             setLoggedIn(false);
     })
 
-    return false ? 
-        <>
-        </> : <Login/>
+    useEffect(() => {
+        console.log(loggedIn)
+    }, [loggedIn])
+
+    return loggedIn ? <Account/> : <Login/>
     
 }
 
