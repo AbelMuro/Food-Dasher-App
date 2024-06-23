@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { CircularProgress } from '@mui/material';
 import EmailInput from './EmailInput';
 import PhoneInput from './PhoneInput';
@@ -15,6 +15,7 @@ function Form() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const navigate = useNavigate();
+    const userData = useRef({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,6 +25,13 @@ function Form() {
         const countryCode = e.target.elements.countryCode.value;
         const zip = e.target.elements.zip.value;
 
+        userData.current = {
+            email,
+            phone: countryCode + phoneNumber,
+            zip,
+            image: ''
+        }
+
         try{
             const docRef = doc(db, `${countryCode + phoneNumber}/userInfo`);
             const userDoc = await getDoc(docRef);
@@ -32,13 +40,6 @@ function Form() {
                 alert('Phone number is already being used');
                 return;
             }
-
-            await setDoc(docRef, {
-                email,
-                image: '',
-                phone: countryCode + phoneNumber,
-                zip
-            }) 
 
             const confirmationResult = await signInWithPhoneNumber(auth, countryCode + phoneNumber, window.recaptchaVerifier);
             setConfirm(confirmationResult);
@@ -58,12 +59,17 @@ function Form() {
 
     const submitCode = async() => {
         setLoading(true);
+
         try{
-            await confirm.confirm(code);    
+            await confirm.confirm(code);  
+            const phone = userData.current.phone; 
+            const docRef = doc(db, `${phone}/userInfo`);
+
+            await setDoc(docRef, userData.current);  
             navigate('/AccountOrLogin');
-               
         }
         catch(error){
+            console.log(error.code)
             setError(true);
         }
         finally{

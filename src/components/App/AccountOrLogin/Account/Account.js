@@ -2,24 +2,23 @@ import React, {useState, useEffect} from 'react';
 import UpdateAccount from './UpdateAccount';
 import UploadImage from './UploadImage';
 import DeleteAccount from './DeleteAccount';
+import LogOut from './LogOut';
 import styles from './styles.module.css';
 import {db, auth} from '~/firebase';
 import {doc, onSnapshot} from 'firebase/firestore';
-import {signOut} from 'firebase/auth';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import images from './images';
+import { useNavigate } from 'react-router-dom';
 
-function Account() {
+function Account({setLoggedIn}) {
     const [user] = useAuthState(auth);
     const [data, setData] = useState(null);
+    const navigate = useNavigate();
 
     const handleOrders = () => {
-
+        navigate('/DisplayAllOrders');
     }
 
-    const handleLogOut = async() => {
-        await signOut(auth);
-    }
 
     useEffect(() => {
         if(!user) 
@@ -62,10 +61,8 @@ function Account() {
                     </button>
                     <UpdateAccount phoneNumber={data.phone}/>
                     <UploadImage phoneNumber={data.phone}/>
-                    <button className={styles.account_button} onClick={handleLogOut}>
-                        Log Out
-                    </button>
-                    <DeleteAccount phoneNumber={data.phone}/>
+                    <LogOut/>
+                    <DeleteAccount phoneNumber={data.phone} setLoggedIn={setLoggedIn}/>
                 </div>
             }
 

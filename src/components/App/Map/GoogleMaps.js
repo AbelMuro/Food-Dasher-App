@@ -31,7 +31,7 @@ function Map() {
     function updateRestaurant(restaurantName) {
         dispatch({type: 'UPDATE_USERS_LOCATION', latlng: usersLocationLatLng.current});
         dispatch({type: 'UPDATE_RESTAURANT', restaurant: restaurantName})
-        navigate("/GoogleMap/" + restaurantName);    
+        navigate("/Menu", {state: restaurantName});    
     }
 
 

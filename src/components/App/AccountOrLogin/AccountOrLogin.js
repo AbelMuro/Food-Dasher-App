@@ -4,22 +4,19 @@ import {auth} from '~/firebase';
 import {onAuthStateChanged} from 'firebase/auth';
 import Account from './Account';
 
-// now i need to find a way to let the user log in again if they want to delete their account
 function AccountOrLogin() {
     const [loggedIn, setLoggedIn] = useState(false);
 
-    onAuthStateChanged(auth, (user) => {
-        if(user)
-            setLoggedIn(true);
-        else
-            setLoggedIn(false);
-    })
-
     useEffect(() => {
-        console.log(loggedIn)
-    }, [loggedIn])
+        onAuthStateChanged(auth, (user) => {
+            if(user)
+                setLoggedIn(true);
+            else
+                setLoggedIn(false);
+        })
+    }, [])
 
-    return loggedIn ? <Account/> : <Login/>
+    return loggedIn ? <Account setLoggedIn={setLoggedIn}/> : <Login setLoggedIn={setLoggedIn}/>
     
 }
 

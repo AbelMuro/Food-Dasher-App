@@ -7,10 +7,9 @@ import {deleteUser} from 'firebase/auth';
 import {CircularProgress} from '@mui/material';
 
 
-
-function DeleteAccount({phoneNumber}) {
+function DeleteAccount({phoneNumber, setLoggedIn}) {
     const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     const handleOpen = () => {
         setOpen(!open);
@@ -19,6 +18,8 @@ function DeleteAccount({phoneNumber}) {
     const handleDelete = async () => {
         setLoading(true);
         try{
+            await deleteUser(auth.currentUser);
+
             const docRef = doc(db, `${phoneNumber}/userInfo`);
             await deleteDoc(docRef);
 
@@ -27,17 +28,17 @@ function DeleteAccount({phoneNumber}) {
             results.items.forEach((ref) => {
                 deleteObject(ref);
             })
-            await deleteUser(auth.currentUser);
+            setOpen(false);
+            setLoading(false);                    
             setTimeout(() => {
                 alert('Account has been deleted')
             }, 500)
         }
         catch(error){
-            console.log(error)
-        }
-        finally{
-            setOpen(false);
-            setLoading(false);
+            if(error.code === 'auth/requires-recent-login'){
+                alert('Deleting your account requires a recent log in, please log in again')
+                setLoggedIn(false);                
+            }         
         }
     }
 

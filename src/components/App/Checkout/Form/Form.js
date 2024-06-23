@@ -5,7 +5,7 @@ import DropOffInstructions from './DropOffInstructions';
 import PaymentInformation from './PaymentInformation';
 import Tip from './Tip';
 import TotalCost from './TotalCost';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {db} from '~/firebase'
 import {collection, addDoc} from 'firebase/firestore';
 import { CircularProgress } from '@mui/material';
@@ -22,13 +22,14 @@ function Form(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         let deliveryOption; 
         e.target.elements.deliveryOption.forEach((option) => {
             if(option.checked)
                 deliveryOption = option.value
         });
         let dropOffOption;
-        e.target.elements.deliveryOption.forEach((option) => {
+        e.target.elements.dropOffOption.forEach((option) => {
             if(option.checked)
                 dropOffOption = option.value
         });
@@ -38,29 +39,39 @@ function Form(){
         const cardNumber = e.target.elements.cardNumber.value;
         const expirationDate = e.target.elements.expirationDate.value;
         const cvc = e.target.elements.cvc.value;
-        const zip = e.target.elements.zip.value;        
+        const zip = e.target.elements.zip.value;    
+        
+        try{
+            const allOrdersRef = collection(db, 'allOrders');
+            await addDoc(allOrdersRef, {
+                cart: items,
+                customerLocation: user,
+                deliveryOption,
+                deliveryTime,
+                dropOffInstructions,
+                dropOffOption,
+                restaurantLocation: restaurant,
+                restaurantName,
+                schedule,
+                tip,
+                total: items.reduce((acc, item) => {
+                    return acc + (item.price * item.quantity);
+                }, 0)
+            })
+            dispatch({type: 'CLEAR'});
+            setTimeout(() => {
+                alert('Order has been placed');
+            }, 1000)              
+            navigate('/')
+ 
+        }catch(error){
+            console.log(error);
+        }
+        finally{
+            setLoading(false);
+        }
 
-        const allOrdersRef = collection(db, 'allOrders');
-        await addDoc(allOrdersRef, {
-            cart: items,
-            customerLocation: user,
-            deliveryOption,
-            deliveryTime,
-            dropOffInstructions,
-            dropOffOption,
-            restaurantLocation: restaurant,
-            restaurantName,
-            schedule,
-            tip,
-            total: items.reduce((acc, item) => {
-                return acc + (item.price * item.quantity);
-            }, 0)
-        })
-        navigate('/')
-        dispatch({type: 'CLEAR'});
-        setTimeout(() => {
-            alert('Order has been placed');
-        }, 1000)
+
     }
 
     return(

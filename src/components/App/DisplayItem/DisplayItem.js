@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import {doc} from 'firebase/firestore';
 import {useDocumentData} from 'react-firebase-hooks/firestore'; 
 import {useDispatch} from 'react-redux';
@@ -11,8 +11,8 @@ import Quantity from './Quantity';
 function DisplayItem() {
     const dispatch = useDispatch();
     const navigate = useNavigate();   
-    const {choosenRestaurant, choosenItem} = useParams();                                
-    const docRef = doc(db, `${choosenRestaurant}/${choosenItem}`);
+    const {state} = useLocation();                                
+    const docRef = doc(db, `${state.restaurantName}/${state.itemTitle}`);
     const [itemData, loading, error] = useDocumentData(docRef);
     const quantityRef = useRef();
 

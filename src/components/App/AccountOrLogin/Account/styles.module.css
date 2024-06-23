@@ -53,3 +53,20 @@
 .account_button:hover{
     background-color: rgb(192, 192, 192);
 }
+
+@media(max-width: 460px){
+    .container{
+        padding-top: 50px;
+        align-items: start;
+    }    
+
+    .account_image{
+        width: 70px;
+        height: 70px;
+        top: -40px;
+    }
+
+    .account{
+        width: 300px;
+    }
+}

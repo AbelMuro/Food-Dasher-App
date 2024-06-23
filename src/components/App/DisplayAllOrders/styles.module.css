@@ -1,0 +1,86 @@
+.orders{
+    width: 100%;
+    min-height: 100vh;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 300px);
+    column-gap: 15px;
+    row-gap: 20px;
+    justify-content: center;
+    align-items: start;
+    background-image: url('./images/food dash banner.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.orders > h1{
+    font-size: 60px;
+    color: white;
+    font-weight: 700;
+    font-family: 'Bebas Neue';
+    grid-column: 1/5;
+    text-align: center;
+}
+
+.order{
+    width: 100%;
+    padding: 25px;
+    background-color: green;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order > p {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.order > p > span {
+    font-weight: 700;
+}
+
+.order > button{
+    height: 50px;
+    background-color: white;
+    color: green;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.order > button:hover{
+    background-color: darkgreen;
+    color: white;
+}
+
+@media(max-width: 1300px){
+    .orders{
+        grid-template-columns: repeat(3, 300px);
+    }
+
+    .orders > h1{
+        grid-column: 1/4;
+    }
+}
+
+@media(max-width: 990px){
+    .orders{
+        grid-template-columns: repeat(2, 300px);
+    }
+
+    .orders > h1{
+        grid-column: 1/3;
+    }
+}
+
+@media(max-width: 660px){
+    .orders{
+        grid-template-columns: repeat(1, 300px);
+    }
+
+    .orders > h1{
+        font-size: 40px;
+        grid-column: 1/2;
+    }
+}

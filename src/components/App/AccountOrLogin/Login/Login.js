@@ -6,7 +6,7 @@ import { signInWithPhoneNumber, RecaptchaVerifier } from 'firebase/auth';
 import {CircularProgress} from '@mui/material'
 import {doc, getDoc} from 'firebase/firestore'
 
-function Login() {
+function Login({setLoggedIn}) {
     const [confirm, setConfirm] = useState(null);
     const [error, setError] = useState(false);
     const [code, setCode] = useState('');
@@ -46,9 +46,10 @@ function Login() {
         setLoading(true);
         try{
             await confirm.confirm(code);    
-            console.log('success!');     
+            setLoggedIn(true);
         }
         catch(error){
+            console.log(error.code)
             setError(true);
         }
         finally{

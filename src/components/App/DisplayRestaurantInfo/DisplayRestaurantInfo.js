@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {collection, query, orderBy} from 'firebase/firestore';
 import {useCollection} from 'react-firebase-hooks/firestore'; 
 import {db} from '~/firebase';
 import './styles.css';
 
-//need to figure out why the app crashes when i refresh the page at this point
 function DisplayRestaurantInfo() {
-    const {choosenRestaurant} = useParams();
-    const collectionRef = collection(db, choosenRestaurant);
+    const {state} = useLocation();                              //state is a string that has the name of the restaurant
+    const collectionRef = collection(db, state);
     const q = query(collectionRef, orderBy('order'));
     const [documents, loading, error] = useCollection(q);
     const [items, setItems] = useState([]);
@@ -17,7 +16,7 @@ function DisplayRestaurantInfo() {
 
     const handleItem = (item) => {
         const itemTitle = item.name;
-        navigate("/GoogleMap/" + choosenRestaurant + "/" + itemTitle)
+        navigate("/MenuItem", {state: {restaurantName: state, itemTitle: itemTitle}})
     }
 
     useEffect(() => {
