@@ -1,65 +1,72 @@
-import React, {useRef} from 'react'
+import React, {useRef, useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faHouse, faMagnifyingGlass, faCartShopping, faUser, faBars} from '@fortawesome/free-solid-svg-icons'; 
-import './styles.css';
+import styles from './styles.module.css';
 import Cart from './Cart';
 import {useDispatch} from 'react-redux';
-
+import { useMediaQuery } from '@mui/material';
 
 function NavigationBar() {
     const navBar = useRef(null);
     const dispatch = useDispatch();
+    const mobile = useMediaQuery('(max-width: 670px)')
 
 
     const displayCart = () => {  
         dispatch({type: 'OPEN_CART'})
     }
 
-    const displayMenu = () => {
-        navBar.current.classList.toggle("closeOpen")
+    const openMenu = () => {
+        navBar.current.classList.toggle(styles.closeOpen)
     }
 
-    const closeNavBar = () => {
-        navBar.current.classList.remove("closeOpen");
+    const closeMenu = () => {
+        navBar.current.classList.remove(styles.closeOpen)
     }
+
+
+    useEffect(() => {
+        if(!mobile && navBar.current.classList.contains(styles.closeOpen))
+            navBar.current.classList.toggle(styles.closeOpen);
+
+    }, [mobile])
 
     return (
-            <nav className={"navBar"} ref={navBar}>
-                <div className={"hamburger"} onClick={displayMenu}>
-                    <span><FontAwesomeIcon icon={faBars} className={"icon"}/></span>
+            <nav className={styles.navBar} ref={navBar}>
+                <div className={styles.hamburger} onClick={openMenu}>
+                    <span><FontAwesomeIcon icon={faBars} className={styles.icon}/></span>
                 </div>
 
-                <div className={"navLogo"}>
+                <div className={styles.navLogo}>
                     Food Dasher!
                 </div>
 
-                <ul className={"menu"}>    
+                <ul className={styles.menu}>    
                     <li>
-                        <Link className={"menuItem"} to="/" onClick={closeNavBar}> 
-                            <span><FontAwesomeIcon icon={faHouse} className={"icon"}/></span>
+                        <Link className={styles.menuItem} to="/" onClick={closeMenu}> 
+                            <span><FontAwesomeIcon icon={faHouse} className={styles.icon}/></span>
                         </Link> 
                     </li>
 
-                    <div className={"whiteLine"}></div>
+                    <div className={styles.whiteLine}></div>
                     <li>
-                        <Link className={"menuItem"} to="/GoogleMap" onClick={closeNavBar}>
-                            <span><FontAwesomeIcon icon={faMagnifyingGlass} className={"icon"}/></span>
+                        <Link className={styles.menuItem} to="/GoogleMap" onClick={closeMenu}>
+                            <span><FontAwesomeIcon icon={faMagnifyingGlass} className={styles.icon}/></span>
                         </Link> 
                     </li>
-                    <div className={"whiteLine"}></div>
+                    <div className={styles.whiteLine}></div>
                     <li>
-                        <Link className={"menuItem"} to="/AccountOrLogin" onClick={closeNavBar}>
-                            <span><FontAwesomeIcon icon={faUser} className={"icon"}/></span>
+                        <Link className={styles.menuItem} to="/AccountOrLogin" onClick={closeMenu}>
+                            <span><FontAwesomeIcon icon={faUser} className={styles.icon}/></span>
                         </Link> 
                     </li>
-                    <div className={"whiteLine"}></div>
+                    <div className={styles.whiteLine}></div>
                 </ul>
 
-                <div className={"menuCart menuItem"} onClick={displayCart}>
-                    <span><FontAwesomeIcon icon={faCartShopping} className={"icon"}/></span>                   
+                <div className={[styles.menuCart, styles.menuItem].join(' ')} onClick={displayCart}>
+                    <span><FontAwesomeIcon icon={faCartShopping} className={styles.icon}/></span>                   
                 </div>
-
                 <Cart/>
             </nav>
     )

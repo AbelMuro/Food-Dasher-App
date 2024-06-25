@@ -4,15 +4,19 @@ import {doc} from 'firebase/firestore';
 import {useDocumentData} from 'react-firebase-hooks/firestore'; 
 import {useDispatch} from 'react-redux';
 import {v4 as uuid} from 'uuid';
-import './styles.css';
+import styles from './styles.module.css';
 import {db} from '~/firebase'
 import Quantity from './Quantity';
 
 function DisplayItem() {
     const dispatch = useDispatch();
     const navigate = useNavigate();   
-    const {state} = useLocation();                                
-    const docRef = doc(db, `${state.restaurantName}/${state.itemTitle}`);
+    const {state} = useLocation(); 
+    const restaurantName = state.restaurantName;
+    const itemTitle = state.itemTitle;       
+    const usersLocation = state.usersLocation;
+    const restaurantLocation = state.restaurantLocation;                      
+    const docRef = doc(db, `${restaurantName}/${itemTitle}`);
     const [itemData, loading, error] = useDocumentData(docRef);
     const quantityRef = useRef();
 
@@ -26,11 +30,12 @@ function DisplayItem() {
 
     const handleAddToOrder = (e) => {
         e.preventDefault();
+        dispatch({type: 'UPDATE_RESTAURANT', restaurant: state.restaurantName});
+        dispatch({type: 'UPDATE_USERS_LOCATION', latlng: usersLocation});
+        dispatch({type: 'UPDATE_RESTAURANT_LOCATION', latlng: restaurantLocation});
         const newItem = {}   
         let ingredients = e.target.elements.ingredients;
         newItem['excludedIngredients'] = [];
-        console.log(ingredients);
-
         if(ingredients && ingredients.length)
             ingredients.forEach((checkbox) => {
                 if(checkbox.checked)
@@ -69,20 +74,20 @@ function DisplayItem() {
 
 
     return(
-        <div className="choosenItemContainer">
+        <div className={styles.choosenItemContainer}>
             {!loading && 
-            <div className='choosenItem'>
-                {itemData && <img className='choosenItemImage' src={itemData.image}/>}
-                <div className='choosenItemTitle'>
+            <div className={styles.choosenItem}>
+                {itemData && <img className={styles.choosenItemImage} src={itemData.image}/>}
+                <div className={styles.choosenItemTitle}>
                     {itemData && itemData.name}
                 </div>
-                <form className='checkBoxes' onSubmit={handleAddToOrder}>
+                <form className={styles.checkBoxes} onSubmit={handleAddToOrder}>
                     {(itemData && itemData.ingredients) && 
-                        <div className='noteToUser'>
+                        <div className={styles.noteToUser}>
                             Select Ingredients to exclude:
                         </div>}
                     {(itemData && itemData.sauce) && 
-                        <div className='noteToUser'>
+                        <div className={styles.noteToUser}>
                             Select Sauces:
                         </div>
                     }
@@ -90,7 +95,7 @@ function DisplayItem() {
                         itemData.ingredients.map((ingredient) => {
                             return(
                                 <div key={ingredient}>
-                                    <input type='checkbox' value={ingredient} className='checkbox' name='ingredients'/>
+                                    <input type='checkbox' value={ingredient} className={styles.checkbox} name='ingredients'/>
                                     &nbsp;No {capitalizeString(ingredient)}
                                     <br/>
                                 </div>
@@ -101,20 +106,23 @@ function DisplayItem() {
                         itemData.sauce.map((sauce) => {
                             return(
                                 <div key={sauce}>
-                                    <input type='checkbox' value={sauce} className='checkbox' name='sauces'/>
+                                    <input type='checkbox' value={sauce} className={styles.checkbox} name='sauces'/>
                                     &nbsp;{capitalizeString(sauce)}
                                     <br/>
                                 </div>
                             )
                         })
                     }
-                    {itemData && <Quantity getQuantity={getQuantity} price={itemData.price}/>}     
-                    <button className="addToOrderButton">
-                        Add to Order
-                    </button>
-                    <button type='button' className="goBackButton" onClick={handleGoBackButton}>
-                        Go Back
-                    </button>                     
+                    {itemData && <Quantity getQuantity={getQuantity} price={itemData.price}/>} 
+                    <div className={styles.buttonContainer}>
+                        <button className={styles.addToOrderButton}>
+                            Add to Order
+                        </button>
+                        <button type='button' className={styles.goBackButton} onClick={handleGoBackButton}>
+                            Go Back
+                        </button>                          
+                    </div>    
+                   
                 </form>
             </div>}             
         </div>

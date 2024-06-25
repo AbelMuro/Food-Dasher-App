@@ -5,6 +5,7 @@
     height: calc(100vh - 70px);
     background-image: url('./images/food dash banner.png');
     text-align: center;
+    padding-bottom: 20px;
 }
 
 .choosenItemTitle {
@@ -24,6 +25,9 @@
     width: 300px;
     height: auto;
     margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 
@@ -37,6 +41,13 @@
     margin: auto;
 }
 
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
 .addToOrderButton {
     background-color: green;
     color: white;
@@ -44,7 +55,6 @@
     border: none;
     padding: 10px;
     cursor: pointer;
-    margin-bottom: 100px;
 }
 
 .goBackButton {

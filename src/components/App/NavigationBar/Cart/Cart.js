@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {faX} from '@fortawesome/free-solid-svg-icons'; 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -12,8 +12,13 @@ function Cart() {
     const items = useSelector(state => state.cart.items);
     
     const closeCart = () => {
-        dispatch({type: 'CLOSE_CART'})
+        dispatch({type: 'CLOSE_CART'});
     }
+
+    useEffect(() => {
+        if(!items.length)
+            dispatch({type: 'CLEAR'});
+    }, [items])
 
     return (
         <div className={"displayOrder"} style={open ? {right: 0} : {right: '-100%'}}>

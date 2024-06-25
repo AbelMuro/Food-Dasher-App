@@ -11,6 +11,8 @@ import AccountOrLogin from './AccountOrLogin';
 import DisplayAllOrders from './DisplayAllOrders';
 import PickUpOrder from './PickUpOrder';
 
+
+//check everything one last time before deployment
 function App() {
 
     return(

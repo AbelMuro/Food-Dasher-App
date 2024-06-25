@@ -1,7 +1,7 @@
 import React, { useState, useRef} from 'react';
 import {GoogleMap, useLoadScript, Autocomplete, DirectionsRenderer} from '@react-google-maps/api';
 import {useNavigate} from 'react-router-dom';
-import './styles.css';
+import styles from './styles.module.css';
 import customStyles from './GoogleMapsStyles';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -24,14 +24,13 @@ function Map() {
     const restaurantInput = useRef();
     const addressInput = useRef();                       
     const usersLocationLatLng = useRef(null);
-    const usersLocationMarker = useRef(null)                            
-    const markers = useRef([]);                                   //an array to contain all the markers on the map
+    const usersLocationMarker = useRef(null)    
+    const selectedRestaurant = useRef(null);                        
+    const markers = useRef([]);                                
     const navigate = useNavigate(); 
 
     function updateRestaurant(restaurantName) {
-        dispatch({type: 'UPDATE_USERS_LOCATION', latlng: usersLocationLatLng.current});
-        dispatch({type: 'UPDATE_RESTAURANT', restaurant: restaurantName})
-        navigate("/Menu", {state: restaurantName});    
+        navigate("/Menu", {state: {restaurantName, usersLocation: usersLocationLatLng.current, restaurantLocation: selectedRestaurant.current}});    
     }
 
 
@@ -42,7 +41,7 @@ function Map() {
             const confirmed = confirm(`You already have a cart with items from ${prevRestaurant}, would you like to clear the cart and order from ${restaurantName}?`);
             if(confirmed){
                 dispatch({type: 'CLEAR'})
-                updateRestaurant(restaurantName)
+                updateRestaurant(restaurantName);
             }
             else
                 setRestaurantInfo(null)
@@ -161,7 +160,7 @@ function Map() {
                 })
                 ///creating a click event for the marker
                 marker.addListener("click", () => {
-                    dispatch({type: 'UPDATE_RESTAURANT_LOCATION', latlng: position});
+                    selectedRestaurant.current = position;
                     //getting details of a location that is marked by a marker
                     let promise = getLocationDetails(place, placesService);
                     promise.then((results)=> {                   
@@ -248,12 +247,12 @@ function Map() {
     }
 
     return isLoaded ? (
-        <section className="container">
-            <div className="instructionsContainer">
-               <p className="instructionsTitle">                       
+        <section className={styles.container}>
+            <div className={styles.instructionsContainer}>
+               <p className={styles.instructionsTitle}>                       
                     INSTRUCTIONS:
                 </p><br/>
-                <p className="instructions">                
+                <p className={styles.instructions}>                
                     1: Enter your address <br/>
                     2: Select restaurant <br/>
                     3: Click on one of the BLUE markers in the map <br/>
@@ -261,7 +260,7 @@ function Map() {
                 </p>
             </div>
             <GoogleMap 
-             mapContainerClassName={"googleMapContainer"}       
+             mapContainerClassName={styles.googleMapContainer}       
              zoom={4}
              onLoad={onLoad}
              center= {usersLocationLatLng.current ? usersLocationLatLng.current : {lat: 39.381266, lng: -97.922211}}
@@ -270,16 +269,16 @@ function Map() {
                 styles: options.styles
             }}                                                                                           
              unMount={()=> setMap(null)}>
-                <div className="inputContainer">
+                <div className={styles.inputContainer}>
                     <div>
-                        <img src="http://maps.gstatic.com/mapfiles/markers2/icon_green.png" className="originMarker"/>
-                        <Autocomplete className="autocomplete">
-                            <input className="usersAddress" type="text" ref={addressInput} />  
+                        <img src="http://maps.gstatic.com/mapfiles/markers2/icon_green.png" className={styles.originMarker}/>
+                        <Autocomplete className={styles.autocomplete}>
+                            <input className={styles.usersAddress} type="text" ref={addressInput} />  
                         </Autocomplete>                    
                     </div>
                     <div>
-                        <img src="http://maps.gstatic.com/mapfiles/markers2/boost-marker-mapview.png" className="destinationMarker"/>  
-                        <select className="SelectRestaurant" ref={restaurantInput}>
+                        <img src="http://maps.gstatic.com/mapfiles/markers2/boost-marker-mapview.png" className={styles.destinationMarker}/>  
+                        <select className={styles.SelectRestaurant} ref={restaurantInput}>
                             <option value="">
                                 Select restaurant..
                             </option>
@@ -292,36 +291,35 @@ function Map() {
                         </select>                     
                     </div>
                     <br/>               
-                    <button type="button" className="search" onClick={() => {CreateHomeMarkerAndSearch()}}>Search Restaurants</button>
-                    <button type="button" className="clear" onClick={() => {clearRoute()}}> Clear Route </button>
+                    <button type="button" className={styles.search} onClick={() => {CreateHomeMarkerAndSearch()}}>Search Restaurants</button>
+                    <button type="button" className={styles.clear} onClick={() => {clearRoute()}}> Clear Route </button>
                     {duration != "" && <div> Delivery Time: {duration}</div>}                
                 </div>
-                <div className="selectedMarker"> 
+                <div className={styles.selectedMarker}> 
                 </div>                  
                 {directions && <DirectionsRenderer directions={directions}/> }
 
                 {restaurantInfo && 
-                    <div className={'selectedMarker'}>
-                        <img className={'markerImage'} src={restaurantInfo['markerImage']}/>
-                        <div className={'markerData'}>
-                            <div className={'markerName'}>
+                    <div className={styles.selectedMarker}>
+                        <img className={styles.markerImage} src={restaurantInfo['markerImage']}/>
+                        <div className={styles.markerData}>
+                            <div className={styles.markerName}>
                                 {restaurantInfo['markerName']}
                             </div>
-                            <div className={'markerAddress'}>
+                            <div className={styles.markerAddress}>
                                 {restaurantInfo['markerAddress']}
                             </div>
-                            <div className={'markerRating'}>
+                            <div className={styles.markerRating}>
                                 {restaurantInfo['markerRating']}
                             </div>
-                            <div className={'markerIsOpen'}>
+                            <div className={styles.markerIsOpen}>
                                 {restaurantInfo['markerIsOpen']}
                             </div>
-                            <button className={'chooseRestaurant'} onClick={handleClick}>
+                            <button className={styles.chooseRestaurant} onClick={handleClick}>
                                 Choose Restaurant
                             </button>
                         </div>
                     </div>
-
                     }
             </GoogleMap>                 
             

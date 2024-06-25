@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Pacifico&family=Roboto&family=Shadows+Into+Light&display=swap');
+
+.restaurantIntro{
+    border-radius: 30px;
+    margin-bottom: 20px;
+}
+
+.restaurantImage {
+    width: 100%;
+}
+
+.restaurantInfo {
+   font-family: 'Anton', sans-serif;
+   font-size: 1.6rem;
+   width: 300px;
+   height: auto;
+   margin: auto;
+}
+
+.restaurantDeliveryFee {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.4rem;
+    width: 200px;
+    height: auto;
+    margin: auto;
+}
+
+
+@media(max-width: 600px){
+
+    .restaurantInfo{
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    .restaurantDeliveryFee{
+        font-size: 1.2rem;
+        text-align: center;
+    }
+}

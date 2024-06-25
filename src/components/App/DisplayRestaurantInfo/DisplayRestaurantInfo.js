@@ -1,23 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import React, {useEffect, useState, lazy} from 'react';
+const Item = lazy(() => import('./Item'))
+import {useLocation} from 'react-router-dom';
 import {collection, query, orderBy} from 'firebase/firestore';
 import {useCollection} from 'react-firebase-hooks/firestore'; 
 import {db} from '~/firebase';
-import './styles.css';
+import styles from './styles.module.css';
 
 function DisplayRestaurantInfo() {
     const {state} = useLocation();                              //state is a string that has the name of the restaurant
-    const collectionRef = collection(db, state);
+    const restaurantName = state.restaurantName;
+    const usersLocation = state.usersLocation;
+    const restaurantLocation = state.restaurantLocation;
+    const collectionRef = collection(db, restaurantName);
     const q = query(collectionRef, orderBy('order'));
     const [documents, loading, error] = useCollection(q);
     const [items, setItems] = useState([]);
     const [logo, setLogo] = useState(null);
-    const navigate = useNavigate();
-
-    const handleItem = (item) => {
-        const itemTitle = item.name;
-        navigate("/MenuItem", {state: {restaurantName: state, itemTitle: itemTitle}})
-    }
 
     useEffect(() => {
         if(!loading){
@@ -27,10 +25,10 @@ function DisplayRestaurantInfo() {
                     const data = doc.data();
                     setLogo(
                         <>
-                            <img className="restaurantImage" src={data.url}/> 
-                            <div className="restaurantIntro">
-                                <p className="restaurantInfo"> Work Hours: {"Open 24 Hours"}</p>
-                                <p className="restaurantDeliveryFee"> Delivery Fee: {"$5.00"}</p>
+                            <img className={styles.restaurantImage} src={data.url}/> 
+                            <div className={styles.restaurantIntro}>
+                                <p className={styles.restaurantInfo}> Work Hours: {"Open 24 Hours"}</p>
+                                <p className={styles.restaurantDeliveryFee}> Delivery Fee: {"$5.00"}</p>
                             </div>                        
                         </>
                     )                    
@@ -38,14 +36,13 @@ function DisplayRestaurantInfo() {
                 else{
                     const data = doc.data();
                     menu.push(
-                        <div className={"itemContainer"} key={doc.id}>
-                            <img className={"itemImage"} src={data.image} />    
-                            <div className={"itemTitle"}>{data.name}</div>
-                            {data.ingredients && <div className={"itemIngredients"}>{data.ingredients.join(',')}</div>}
-                            {data.sauce && <div className={"itemSauces"}>{data.sauce.join(',')}</div>}
-                            <div className={"itemPrice"}>${data.price.toFixed(2)}</div>
-                            <button className={"chooseItem"} onClick={() => handleItem(data)}>Select Item</button>
-                        </div>  
+                        <Item 
+                            restaurantName={restaurantName} 
+                            data={data} 
+                            key={data.name} 
+                            usersLocation={usersLocation} 
+                            restaurantLocation={restaurantLocation}
+                        />
                     )
                 }
             }) 

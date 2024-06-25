@@ -7,7 +7,8 @@ import {
     PAUSE,                                                                          // Keep in mind that these actions are non-serializable
     PERSIST,                                                                        // so you have to make sure that redux doesnt use serializableCheck on these actions
     PURGE,                                                                          // in the configureStore()
-    REGISTER} from 'redux-persist';
+    REGISTER
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';                                    //using the local storage to store the state
 import rootReducer from './Reducers';
 import { getPersistConfig } from 'redux-deep-persist';
@@ -15,7 +16,7 @@ import { getPersistConfig } from 'redux-deep-persist';
 const config = getPersistConfig({
     key: 'fooddasher',
     storage,
-    whitelist: ['cart', 'location'],                                         
+    whitelist: ['cart.items', 'cart.restaurant', 'location'],                                         
     rootReducer
 });
 

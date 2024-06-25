@@ -1,3 +1,10 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
 .selectQuantity {
     font-family: 'Roboto', sans-serif;
 }
@@ -15,11 +22,10 @@
 
 .increaseQuantity {
     background-color: green;
-    margin-bottom: 1.2rem;
 }
 
 .choosenItemPrice {
     font-weight: bold; 
     font-size: 1.7rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 15px;
 }
