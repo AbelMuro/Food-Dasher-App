@@ -12,6 +12,7 @@ module.exports = {
     plugins: [                      
         new HtmlWebpackPlugin({               
             filename: 'index.html',           
+            favicon: './src/images/food dasher favicon.png',
             template: './src/index.html'      
         }),
         new dotenv(),                                //using the dotenv plugin to use .env files

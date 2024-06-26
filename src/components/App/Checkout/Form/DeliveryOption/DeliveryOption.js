@@ -66,6 +66,10 @@ function DeliveryOption() {
        });
     }, [])
 
+    useEffect(() => {
+        console.log(schedule);
+    }, [schedule])
+
 
     return(
         <>
@@ -107,13 +111,13 @@ function DeliveryOption() {
                     Schedule
                 </label>
             </fieldset>  
-            <input type='hidden' value={schedule} name='schedule'/>
+            <input type='hidden' value={schedule} name='scheduleForLater'/>
             <div className={styles.overlay} style={open ? {display: 'block'} : {display: 'none'}}>
                 <dialog open={open} className={styles.dialog}>
                     <h1>
                         Schedule Order
                     </h1>
-                    <select value={schedule} onChange={handleSchedule} name='schedule'>
+                    <select value={schedule} onChange={handleSchedule}>
                         {options.current.length !== 0 && 
                             options.current.map((option) => {
                                 return (

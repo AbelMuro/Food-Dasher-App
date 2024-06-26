@@ -7,10 +7,14 @@ import styles from './styles.module.css';
 function DisplayItems() {
     const items = useSelector(state => state.cart.items);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if(!items.length)
+        if(!items.length){
             navigate('/');
+            dispatch({type: 'CLEAR'});
+        }
+            
     }, [items])
 
     return(

@@ -15,6 +15,7 @@ import styles from './styles.module.css';
 function Form(){
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const items = useSelector(state => state.cart.items);
     const restaurantName = useSelector(state => state.cart.restaurant);
     const {user, restaurant} = useSelector(state => state.location);
@@ -34,13 +35,13 @@ function Form(){
                 dropOffOption = option.value
         });
         const dropOffInstructions = e.target.elements.dropOffInstructions.value;
-        const schedule = e.target.elements.schedule.value;
+        const schedule = e.target.elements.scheduleForLater.value;
         const tip = e.target.elements.tip.value;        
         const cardNumber = e.target.elements.cardNumber.value;
         const expirationDate = e.target.elements.expirationDate.value;
         const cvc = e.target.elements.cvc.value;
         const zip = e.target.elements.zip.value;    
-        
+    
         try{
             const allOrdersRef = collection(db, 'allOrders');
             await addDoc(allOrdersRef, {
@@ -61,8 +62,8 @@ function Form(){
             dispatch({type: 'CLEAR'});
             setTimeout(() => {
                 alert('Order has been placed');
-            }, 1000)              
-            navigate('/')
+            }, 500)              
+            navigate('/');
  
         }catch(error){
             console.log(error);
@@ -83,7 +84,7 @@ function Form(){
             <Tip/>
             <TotalCost/>
             <button className={styles.submit}>
-                {loading ? <CircularProgress /> : 'PLACE ORDER'}
+                {loading ? <CircularProgress sx={{color: 'white'}} size='1.5rem'/> : 'PLACE ORDER'}
             </button>
         </form>
     )
