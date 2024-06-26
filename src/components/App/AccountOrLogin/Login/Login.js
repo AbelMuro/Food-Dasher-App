@@ -58,7 +58,7 @@ function Login({setLoggedIn}) {
     }
 
     useEffect(() => {
-        auth.languageCode = 'it'; 
+        auth.languageCode = 'en'; 
         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'log-in-button', {
             'size': 'invisible',
             'callback': (response) => {
