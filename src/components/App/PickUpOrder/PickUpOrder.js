@@ -18,8 +18,6 @@ function PickUpOrder() {
     const deliveryTime = schedule ? schedule : `${formatDeliveryTime(time)}-${formatDeliveryTime(Number(time) + 30)}`
     const items = state.cart;
 
-    console.log(state);
-
     const reverseGeocode = async () => {
         try{
             let response = await fetch(`https://geocode.maps.co/reverse?lat=${customerLocation.lat}&lon=${customerLocation.lng}&api_key=${process.env.geocode}`);

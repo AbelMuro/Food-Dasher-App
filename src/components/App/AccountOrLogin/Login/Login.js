@@ -62,7 +62,6 @@ function Login({setLoggedIn}) {
         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'log-in-button', {
             'size': 'invisible',
             'callback': (response) => {
-                console.log(response);
             }
         });
     }, [])

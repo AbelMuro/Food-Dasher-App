@@ -82,7 +82,6 @@ function Form() {
         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
             'size': 'invisible',
             'callback': (response) => {
-                console.log(response);
             }
         });
     }, [])

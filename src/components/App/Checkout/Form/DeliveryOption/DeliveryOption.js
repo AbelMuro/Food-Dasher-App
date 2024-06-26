@@ -66,10 +66,6 @@ function DeliveryOption() {
        });
     }, [])
 
-    useEffect(() => {
-        console.log(schedule);
-    }, [schedule])
-
 
     return(
         <>

@@ -136,7 +136,6 @@ function Map() {
         let placesService = new google.maps.places.PlacesService(map);     
         placesService.nearbySearch(request, (places, status) => {
             if(status !== "OK") {
-                console.log(status);
                 alert("Address is invalid");
                 return;
             }
