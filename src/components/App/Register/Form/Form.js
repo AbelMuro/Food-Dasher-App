@@ -45,7 +45,10 @@ function Form() {
             setConfirm(confirmationResult);
         }
         catch(error){
-            console.log(error);
+            if(error.code === 'auth/operation-not-allowed'){
+                alert('Phone number has been used too many times, it is temporarily blocked. Try again later');
+            }
+            console.log(error.code);
         }
         finally{
             setLoading(false);

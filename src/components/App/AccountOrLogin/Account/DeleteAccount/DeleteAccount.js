@@ -32,7 +32,7 @@ function DeleteAccount({phoneNumber, setLoggedIn}) {
             setLoading(false);                    
             setTimeout(() => {
                 alert('Account has been deleted')
-            }, 500)
+            }, 300)
         }
         catch(error){
             if(error.code === 'auth/requires-recent-login'){
