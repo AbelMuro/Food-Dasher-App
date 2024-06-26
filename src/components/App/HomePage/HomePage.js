@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ImageCarousel from './ImageCarousel';
 import { useNavigate } from 'react-router-dom';
 import './styles.css';
@@ -9,6 +9,11 @@ function HomePage() {
     const handleSignUp = () => {
         navigate('/Register');
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
 
         return (
         <> 
