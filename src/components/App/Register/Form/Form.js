@@ -81,7 +81,7 @@ function Form() {
     }
 
     useEffect(() => {
-        auth.languageCode = 'it'; 
+        auth.languageCode = 'en'; 
         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
             'size': 'invisible',
             'callback': (response) => {
