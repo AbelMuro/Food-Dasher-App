@@ -15,7 +15,7 @@ module.exports = {
             favicon: './src/images/food dasher favicon.png',
             template: './src/index.html'      
         }),
-        new dotenv(),                                //using the dotenv plugin to use .env files
+        new dotenv({systemvars: true}),                                //using the dotenv plugin to use .env files
     ],
     module: {
         rules: [                               
