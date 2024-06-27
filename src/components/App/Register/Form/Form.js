@@ -45,8 +45,8 @@ function Form() {
             setConfirm(confirmationResult);
         }
         catch(error){
-            if(error.code === 'auth/operation-not-allowed'){
-                alert('Phone number has been used too many times, it is temporarily blocked. Try again later');
+            if(error.code === 'auth/too-many-requests'){
+                alert('Phone number has been used too many times in one day. Please try again later')
             }
             console.log(error.code);
             location.reload();
