@@ -10,6 +10,8 @@
 }
 
 .decreaseQuantity, .increaseQuantity {
+    width: 32px;
+    height: 32px;
     border-radius: 100%;
     border: none;
     padding: 8px;
